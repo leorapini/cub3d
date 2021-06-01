@@ -6,7 +6,7 @@
 #    By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/24 09:16:41 by lpinheir          #+#    #+#              #
-#    Updated: 2021/05/24 11:15:37 by lpinheir         ###   ########.fr        #
+#    Updated: 2021/05/27 12:16:39 by lpinheir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ MLX_FLAGS = -L $(MLX_DIR) -lmlx -lm -lbsd -lX11 -lXext
 
 CC = clang
 CC_FLAGS = -Wall -Werror -Wextra
+LEAKS = -g -fsanitize=address
 
 RM_FLAGS = -f
 
@@ -45,7 +46,7 @@ $(LIBFT):
 	@make -C $(LIBFT_DIR)
 
 $(NAME):	$(OBJS) $(LIBFT)
-	$(CC) $(CC_FLAGS) -o $(NAME) $(OBJS) $(LIBFT_FLAGS) $(MLX_FLAGS)
+	$(CC) $(CC_FLAGS) -o $(NAME) $(OBJS) $(LIBFT_FLAGS) $(MLX_FLAGS) $(LEAKS)
 
 clean:
 	@make clean -C $(LIBFT_DIR)

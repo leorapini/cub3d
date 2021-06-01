@@ -1,0 +1,9 @@
+R 600 400
+NO ./images/fire.xpm
+SO ./images/water.xmp
+WE ./images/earth.xmp
+EA ./images/wind.xmp
+
+S ./images/billy.xmp
+F 200,100,0
+C 225,30,0
