@@ -6,16 +6,19 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:34:04 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/06/01 11:56:42 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/06/03 10:25:40 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 
+/* Parses Textures for SO, SO, WE, EA, S. Receives string with file location
+and config and set those locations to each respective item in config */
 static int	parse_textures(char *name, char *file_location, t_config *config)
 {
 	if (!file_location || !name)
 		return (1);
+	check_file_exists(file_location);
 	if (!(ft_strncmp(name, "NO", 2)))
 		config->no_texture = ft_strdup(file_location);
 	else if (!(ft_strncmp(name, "SO", 2)))
@@ -29,6 +32,8 @@ static int	parse_textures(char *name, char *file_location, t_config *config)
 	return (0);
 }
 
+/* Parses Colors for Floor and Ceiling (F, C), receives item name, color value
+in string format Ex. 100,100,0 and Config */
 static int	parse_colors(char *name, char *rgb_color, t_config *config)
 {
 	if (!name || !rgb_color)
@@ -40,6 +45,20 @@ static int	parse_colors(char *name, char *rgb_color, t_config *config)
 	return (0);
 }
 
+/* Parses Resolution (R) values. Receives two strings and config */
+static int	parse_res(char *size_w, char *size_h, t_config *config)
+{
+	if (!size_w || !size_h)
+		error("Missing R value");
+	if (ft_strisdigit(size_w) == 0
+		|| ft_strisdigit(size_h) == 0)
+		error("R values aren't digits");
+	config->win_w = ft_atoi(size_w);
+	config->win_h = ft_atoi(size_h);
+	return (0);
+}
+
+/* Receives a string and config and parses it looking for the keywords */
 static int	parse_line(char *line, t_config *config)
 {
 	char	**words_line;
@@ -48,10 +67,7 @@ static int	parse_line(char *line, t_config *config)
 		return (0);
 	words_line = ft_split(line, ' ');
 	if (!(ft_strncmp(words_line[0], "R", 1)))
-	{
-		config->win_w = ft_atoi(words_line[1]);
-		config->win_h = ft_atoi(words_line[2]);
-	}
+		parse_res(words_line[1], words_line[2], config);
 	else if (!(ft_strncmp(words_line[0], "NO", 2))
 		|| !(ft_strncmp(words_line[0], "SO", 2))
 		|| !(ft_strncmp(words_line[0], "WE", 2))
@@ -65,6 +81,7 @@ static int	parse_line(char *line, t_config *config)
 	return (0);
 }
 
+/* Receives a file address and config and parsers its values to config */
 int	parse_cub(char const *file, t_config *config)
 {
 	int		fd;
@@ -72,6 +89,7 @@ int	parse_cub(char const *file, t_config *config)
 	int		gnl_return;
 
 	fd = open(file, O_RDONLY);
+	check_file_exists(file);
 	while (true)
 	{
 		gnl_return = get_next_line(fd, &line);

@@ -6,25 +6,28 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 15:14:31 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/06/01 19:08:46 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/06/03 10:23:15 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 
-void	free_split(char **words_line)
+/* Frees each memory slot allocated by the ft_split function */
+void	free_split(char **array)
 {
 	int	i;
 
 	i = 0;
-	while (words_line[i] != NULL)
+	while (array[i] != NULL)
 	{
-		free(words_line[i]);
+		free(array[i]);
 		i++;
 	}
-	free(words_line);
+	free(array);
 }
 
+/* Auxiliary function to rgb_to_int. Receives two strings, joins them
+and returns the joined string. */
 static char	*join_hex(char *hex_dest, char *hex)
 {
 	char	*temp;
@@ -35,6 +38,8 @@ static char	*join_hex(char *hex_dest, char *hex)
 	return (hex_dest);
 }
 
+/* Receives a rgb string in the format Ex. 100,100,0 and returns the int
+value referent to that rgb value */
 int	rgb_to_int(char	*rgb_color)
 {
 	char	**numbers;
@@ -60,4 +65,18 @@ int	rgb_to_int(char	*rgb_color)
 	free(total_hex);
 	free_split(numbers);
 	return (results);
+}
+
+int	check_file_exists(char const *file)
+{
+	int	fd;
+
+	fd = open(file, O_RDONLY);
+	if (fd < 1)
+	{
+		printf("Problem with file %s\n", file);
+		error("File Doesn't Exist");
+	}
+	close(fd);
+	return (0);
 }

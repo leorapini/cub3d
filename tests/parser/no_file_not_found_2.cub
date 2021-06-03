@@ -1,5 +1,5 @@
 R 600 400
-NO ./images/open.xpm
+NO 1234 
 SO ./images/open.xpm
 WE ./images/open.xpm
 EA ./images/open.xpm

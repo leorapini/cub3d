@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:19:17 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/06/01 19:10:57 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/06/03 10:24:02 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_config
 
 /* CONFIG */
 void	init_config(t_config *config);
+void	check_config(t_config config);
 void	free_config(t_config *config);
 
 /* PARSER */
@@ -49,5 +50,9 @@ int		parse_cub(char const *file, t_config *config);
 /* PARSER UTILS */
 void	free_split(char **words_line);
 int		rgb_to_int(char *rgb_color);
+int		check_file_exists(char const *file);
+
+/* ERROR HANDLING */
+void	error(char *message);
 
 #endif

@@ -1,4 +1,4 @@
-R 600 400
+R 600 abc
 NO ./images/open.xpm
 SO ./images/open.xpm
 WE ./images/open.xpm
