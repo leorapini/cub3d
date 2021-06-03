@@ -1,0 +1,9 @@
+R 600 400
+NO ./images/open.xpm
+SO ./images/open.xpm
+WE ./images/open.xpm
+EA ./images/open.xpm
+
+S ./images/open.xpm
+F 200,100
+C 225,30,0
