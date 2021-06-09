@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   mlx_config.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/02 09:41:26 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/06/08 10:01:08 by lpinheir         ###   ########.fr       */
+/*   Created: 2021/06/05 15:49:24 by lpinheir          #+#    #+#             */
+/*   Updated: 2021/06/05 15:59:34 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
+#include "mlx.h"
 
-/* Receives a message, prints it, and exists with error */
-void	error(char *message)
+void	mlx_config(t_config config, t_mlx *mlx)
 {
-	printf("Error\n");
-	printf(">> %s <<\n", message);
-	exit(1);
+	mlx->mlx = mlx_init();
+	mlx->win = mlx_new_window(mlx->mlx, config.win_w, config.win_h, "Cub3d");
 }
