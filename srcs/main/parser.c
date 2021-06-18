@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:34:04 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/06/04 16:25:09 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/06/10 18:03:52 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ static int	parse_line(char *line, t_config *config)
 	else if (!(ft_strncmp(words_line[0], "F", 1))
 		|| !(ft_strncmp(words_line[0], "C", 1)))
 		parse_colors(words_line[0], words_line[1], config);
+	else
+		parse_map(line, config);
 	free_split(words_line);
 	return (0);
 }

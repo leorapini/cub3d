@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 11:15:43 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/06/08 15:47:53 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/06/17 15:53:48 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	init_config(t_config *config)
 	config->spr_texture = NULL;
 	config->floor_color = 0;
 	config->ceiling_color = 0;
+	config->pos_x = 0;
+	config->pos_y = 0;
 }
 
 /* Receives config and checks if values are equal to initialized 

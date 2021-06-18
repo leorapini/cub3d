@@ -6,7 +6,7 @@
 #    By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/24 09:16:41 by lpinheir          #+#    #+#              #
-#    Updated: 2021/06/05 16:09:13 by lpinheir         ###   ########.fr        #
+#    Updated: 2021/06/17 17:36:50 by lpinheir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ RM_FLAGS = -f
 
 S_DIR = srcs
 O_DIR = objs
-SUBDIRS = main screen
+SUBDIRS = main game
 
 S_DIRS = $(foreach dir, $(SUBDIRS), $(addprefix $(S_DIR)/, $(dir)))
 O_DIRS = $(foreach dir, $(SUBDIRS), $(addprefix $(O_DIR)/, $(dir)))
