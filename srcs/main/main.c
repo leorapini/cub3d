@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:19:20 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/06/17 13:07:56 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/07/12 11:47:56 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 	check_config(config);
 	setup_player_pos(&config, config.map);
 	game_config(config, &mlx, &game, &img);
-	draw_line(game, config.map);
+	draw_board(game, config.map);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
 	mlx_hook(mlx.win, KEY_PRESS, KEY_PRESS_MASK, key_control, &game);
 	mlx_hook(mlx.win, CLIENT_MESSAGE, CLNT_MSG_MASK, goodbye, &game);

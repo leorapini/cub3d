@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:19:20 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/06/18 10:39:13 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/07/14 14:11:50 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,15 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 // calculate ray lengh. start at pos and move from there until hits wall 
 
-void	draw_line(t_game game, int map[MAP_H][MAP_W])
+void	draw_board(t_game game, int map[MAP_H][MAP_W])
 {
 	int	pix_x;
 	int	pix_y;
 	int	bl_h;
 	int	bl_w;
-	int	dist;
 
 	pix_y = 0;
 	bl_h = 0;
-	dist = ray_length(game.config, map);
 	while (pix_y < game.config.win_h)
 	{
 		if ((pix_y == BLOCKSIZE && bl_h == 0)
@@ -46,15 +44,7 @@ void	draw_line(t_game game, int map[MAP_H][MAP_W])
 			if ((pix_x == BLOCKSIZE && bl_w == 0)
 				|| (pix_x % BLOCKSIZE == 0 && bl_w != 0))
 				bl_w++;
-			if ((pix_x == game.config.pos_x && map[bl_h][bl_w] == FLOOR)
-				&& (pix_y < game.config.pos_y 
-					&& pix_y > game.config.pos_y - dist)
-						&& dist >= 0)
-			{
-					dist--;
-					my_mlx_pixel_put(&game.img, pix_x, pix_y, RED);
-			}
-			else if (map[bl_h][bl_w] == WALL || map[bl_h][bl_w] == PILLAR)
+			if (map[bl_h][bl_w] == WALL || map[bl_h][bl_w] == PILLAR)
 				my_mlx_pixel_put(&game.img, pix_x, pix_y, ORANGE);
 			else if (map[bl_h][bl_w] == FLOOR)
 				my_mlx_pixel_put(&game.img, pix_x, pix_y, WHITE);
@@ -62,7 +52,14 @@ void	draw_line(t_game game, int map[MAP_H][MAP_W])
 		}
 		pix_y++;
 	}
+	/* User */
+	my_mlx_pixel_put(&game.img, game.config.pos_x,
+				game.config.pos_y, RED);
+	/* Final Hit */
+	my_mlx_pixel_put(&game.img, game.config.hit_x, game.config.hit_y, RED);
+	
 }
+
 
 int	where_it_lands(t_config config, int new_x, int new_y)
 {
@@ -124,6 +121,7 @@ int	setup_player_pos(t_config *config, int map[MAP_H][MAP_W])
 			{
 				config->pos_x = pix_x + (BLOCKSIZE / 2);
 				config->pos_y = pix_y + (BLOCKSIZE / 2);
+				wall_hit(config);
 				map[bl_h][bl_w] = FLOOR;
 				return (0);
 			}

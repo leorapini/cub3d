@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 11:15:43 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/06/17 15:53:48 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/07/13 15:43:35 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	init_config(t_config *config)
 	config->ceiling_color = 0;
 	config->pos_x = 0;
 	config->pos_y = 0;
+	config->hit_x = 0;
+	config->hit_y = 0;
+	config->angle = 60 * PI / 180;
 }
 
 /* Receives config and checks if values are equal to initialized 

@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:19:17 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/06/18 10:39:01 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/07/13 15:33:34 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,16 @@
 # define	EMPTY 7
 
 # define	STEPS 2
+# define	ANGLE 2
+
+# define	PI 3.142857
 
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <math.h>
 # include "libft.h"
 
 typedef struct s_mlx
@@ -71,6 +75,13 @@ typedef struct s_config
 	int		map[MAP_H][MAP_W];
 	int		pos_x;
 	int		pos_y;
+	double		angle;
+	int		hit_x;
+	int		hit_y;
+	int		hor_hit_y;
+	int		hor_hit_x;
+	int		ver_hit_y;
+	int		ver_hit_x;
 }		t_config;
 
 typedef struct s_data
@@ -125,11 +136,14 @@ void	error(char *message);
 
 /* DRAW  */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	draw_line(t_game game, int map[MAP_H][MAP_W]);
+void	draw_board(t_game game, int map[MAP_H][MAP_W]);
 int		where_it_lands(t_config config, int new_x, int new_y);
 int		setup_player_pos(t_config *config, int map[MAP_H][MAP_W]);
 
 /* RAYCASTING */
-int	ray_length(t_config config, int map[MAP_H][MAP_W]);
+void	wall_hit(t_config *config);
+int	hor_wall_hit(t_config *config);
+int	ver_wall_hit(t_config *config);
+void	cast_ray(t_config *config);
 
 #endif
