@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 11:15:43 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/07/13 15:43:35 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/07/30 20:07:03 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,28 @@ void	init_config(t_config *config)
 	config->spr_texture = NULL;
 	config->floor_color = 0;
 	config->ceiling_color = 0;
-	config->pos_x = 0;
-	config->pos_y = 0;
-	config->hit_x = 0;
-	config->hit_y = 0;
-	config->angle = 60 * PI / 180;
+}
+
+void	init_player(t_player *player)
+{
+	player->x = 0;
+	player->y = 0;
+	player->turn_dir = 0;
+	player->walk_dir = 0;
+	player->rot_ang = PI / 2;
+}
+
+void	init_ray(t_ray *ray)
+{
+	ray->hit_x = 0;
+	ray->hit_y = 0;
+	ray->hit_dist = 0;
+	ray->angle = 0;
+	ray->hor_hit_y = 0;
+	ray->hor_hit_x = 0;
+	ray->ver_hit_y = 0;
+	ray->ver_hit_x = 0;
+	ray->was_hit_ver = 0;
 }
 
 /* Receives config and checks if values are equal to initialized 

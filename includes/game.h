@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:19:17 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/07/13 15:33:34 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/07/30 20:07:10 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 # define	MAP_W 200
 # define	MAP_H 200
-# define	BLOCKSIZE 28
+# define	BLOCKSIZE 32
 
 # define	ORANGE 16755200
 # define	RED 16711680
@@ -46,6 +46,14 @@
 # define	ANGLE 2
 
 # define	PI 3.142857
+# define	RADIAN PI / 180
+# define	FOV 60 * (PI / 180)
+
+// New Defines
+# define	ROT_ANG PI / 2
+# define	MOV_SPEED 3.0
+# define	ROT_SPEED 3 * (PI / 180)
+
 
 # include <stdio.h>
 # include <unistd.h>
@@ -73,16 +81,31 @@ typedef struct s_config
 	int		floor_color;
 	int		ceiling_color;
 	int		map[MAP_H][MAP_W];
-	int		pos_x;
-	int		pos_y;
-	double		angle;
+}		t_config;
+
+typedef struct s_player
+{
+	int		x;
+	int		y;
+	int		turn_dir;
+	int		walk_dir;
+	double		rot_ang;
+}		t_player;
+
+typedef struct s_ray
+{
 	int		hit_x;
 	int		hit_y;
+	double		hit_dist;
+	double		angle;
 	int		hor_hit_y;
 	int		hor_hit_x;
 	int		ver_hit_y;
 	int		ver_hit_x;
-}		t_config;
+	int		hor_hit_dist;
+	int		ver_hit_dist;
+	int		was_hit_ver;
+}		t_ray;
 
 typedef struct s_data
 {
@@ -103,10 +126,14 @@ typedef struct	s_game
 	t_mlx		mlx;
 	t_config	config;
 	t_data		img;
+	t_player	player;
+	t_ray		ray;
 }		t_game;
 
 /* CONFIG */
+void	init_player(t_player *player);
 void	init_config(t_config *config);
+void	init_ray(t_ray *ray);
 void	check_config(t_config config);
 void	free_config(t_config *config);
 
@@ -122,7 +149,7 @@ int		check_file_exists(char const *file);
 int		parse_map(char *line, t_config *config);
 
 /* ML_CONFIG */
-void	game_config(t_config config, t_mlx *mlx, t_game *game, t_data *img);
+void	game_config(t_config config, t_player player, t_ray ray, t_mlx *mlx, t_game *game, t_data *img);
 
 /* CAMERA */
 void	update_camera(t_game game);
@@ -136,14 +163,14 @@ void	error(char *message);
 
 /* DRAW  */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	draw_board(t_game game, int map[MAP_H][MAP_W]);
+void	draw(t_game *game, int map[MAP_H][MAP_W]);
 int		where_it_lands(t_config config, int new_x, int new_y);
-int		setup_player_pos(t_config *config, int map[MAP_H][MAP_W]);
+int	setup_player_pos(t_player *player, t_config *config, int map[MAP_H][MAP_W]);
 
 /* RAYCASTING */
-void	wall_hit(t_config *config);
-int	hor_wall_hit(t_config *config);
-int	ver_wall_hit(t_config *config);
-void	cast_ray(t_config *config);
+void	cast_rays(t_game *game);
+int	wall_hit(t_game *game);
+int	hor_wall_hit(t_game *game);
+int	ver_wall_hit(t_game *game);
 
 #endif

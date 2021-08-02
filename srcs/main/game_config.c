@@ -6,14 +6,14 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 15:49:24 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/06/17 15:54:42 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/07/29 16:42:03 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 #include "mlx.h"
 
-void	game_config(t_config config, t_mlx *mlx, t_game *game, t_data *img)
+void	game_config(t_config config, t_player player, t_ray ray, t_mlx *mlx, t_game *game, t_data *img)
 {
 	mlx->mlx = mlx_init();
 	mlx->win = mlx_new_window(mlx->mlx, config.win_w, config.win_h, "Cub3d");
@@ -25,5 +25,7 @@ void	game_config(t_config config, t_mlx *mlx, t_game *game, t_data *img)
 	img->color = config.floor_color;
 	game->mlx = *mlx;
 	game->config = config;
+	game->player = player;
+	game->ray = ray;
 	game->img = *img;
 }
