@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:19:20 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/07/30 19:55:50 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/02 20:03:02 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void	draw(t_game *game, int map[MAP_H][MAP_W])
 {
+	/*
 	int	x;
 	int	y;
 	int bl_w;
@@ -51,16 +52,51 @@ void	draw(t_game *game, int map[MAP_H][MAP_W])
 	my_mlx_pixel_put(&game->img, game->player.x+1, game->player.y, RED);
 	my_mlx_pixel_put(&game->img, game->player.x+1, game->player.y+1, RED);
 	my_mlx_pixel_put(&game->img, game->player.x, game->player.y+1, RED);
+	*/
 
-
+	printf("%d\n", map[0][0]);
 	// Cast Rays
 	cast_rays(game);
+
+}
+
+void	draw_3d(t_game *game, float col)
+{
+	float	dist_proj_plane;
+	float	proj_wall_height;
+	int	wall_height;
+	int	wall_top_pix;
+	int	wall_bottom_pix;
+	float	x;
+	float	y;
+
+	x = col;
+	y = 0;
+
+	dist_proj_plane = (game->config.win_w / 2) / tan(FOV / 2);
+	proj_wall_height = (BLOCKSIZE / game->ray.hit_dist) * dist_proj_plane;
+	wall_height = (int) proj_wall_height;
+
+	wall_top_pix = (game->config.win_h / 2) - (wall_height / 2);
+	if (wall_top_pix < 0)
+		wall_top_pix = 0;
+
+	wall_bottom_pix = (game->config.win_h / 2) + (wall_height / 2);
+	if (wall_bottom_pix > game->config.win_h)
+		wall_bottom_pix = game->config.win_h; 
 	
-	// Final Hit 	
-	//my_mlx_pixel_put(&game->img, game->ray.hit_x, game->ray.hit_y, RED);
-	//my_mlx_pixel_put(&game->img, game->ray.hit_x+1, game->ray.hit_y, RED);
-	//my_mlx_pixel_put(&game->img, game->ray.hit_x+1, game->ray.hit_y+1, RED);
-	//my_mlx_pixel_put(&game->img, game->ray.hit_x, game->ray.hit_y+1, RED);
+	//printf("wall_top_pix:%d wall_bottom_pix:%d\n", wall_top_pix, wall_bottom_pix);
+	while (y < game->config.win_h)
+	{
+		while (y >= wall_top_pix && y < wall_bottom_pix)
+		{
+			//printf("Printing\n");
+			my_mlx_pixel_put(&game->img, x, y, RED);
+			y++;
+		}
+		my_mlx_pixel_put(&game->img, x, y, 0);
+		y++;
+	}
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 11:15:43 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/07/30 20:07:03 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/02 09:37:22 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	init_ray(t_ray *ray)
 	ray->hor_hit_x = 0;
 	ray->ver_hit_y = 0;
 	ray->ver_hit_x = 0;
+	ray->found_hor_hit = 0;
+	ray->found_ver_hit = 0;
 	ray->was_hit_ver = 0;
 }
 

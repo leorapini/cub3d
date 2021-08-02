@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:19:17 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/07/30 20:07:10 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/02 19:54:46 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@
 
 # define	PI 3.142857
 # define	RADIAN PI / 180
-# define	FOV 60 * (PI / 180)
+# define	FOV 60.0 * (PI / 180.0)
 
 // New Defines
 # define	ROT_ANG PI / 2
 # define	MOV_SPEED 3.0
-# define	ROT_SPEED 3 * (PI / 180)
+# define	ROT_SPEED 3.0 * (PI / 180.0)
 
-
+# include <limits.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -71,8 +71,8 @@ typedef struct s_mlx
 
 typedef struct s_config
 {
-	int		win_h;
-	int		win_w;
+	float		win_h;
+	float		win_w;
 	char	*no_texture;
 	char	*so_texture;
 	char	*we_texture;
@@ -85,8 +85,8 @@ typedef struct s_config
 
 typedef struct s_player
 {
-	int		x;
-	int		y;
+	float		x;
+	float		y;
 	int		turn_dir;
 	int		walk_dir;
 	double		rot_ang;
@@ -94,16 +94,20 @@ typedef struct s_player
 
 typedef struct s_ray
 {
-	int		hit_x;
-	int		hit_y;
-	double		hit_dist;
+	float		hit_x;
+	float		hit_y;
+	float		hit_dist;
 	double		angle;
 	int		hor_hit_y;
 	int		hor_hit_x;
+	int		hor_hit_cont;
 	int		ver_hit_y;
 	int		ver_hit_x;
-	int		hor_hit_dist;
-	int		ver_hit_dist;
+	int		ver_hit_cont;
+	int		found_hor_hit;
+	int		found_ver_hit;
+	float		hor_hit_dist;
+	float		ver_hit_dist;
 	int		was_hit_ver;
 }		t_ray;
 
@@ -166,11 +170,13 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw(t_game *game, int map[MAP_H][MAP_W]);
 int		where_it_lands(t_config config, int new_x, int new_y);
 int	setup_player_pos(t_player *player, t_config *config, int map[MAP_H][MAP_W]);
+void	draw_3d(t_game *game, float col);
 
 /* RAYCASTING */
 void	cast_rays(t_game *game);
 int	wall_hit(t_game *game);
 int	hor_wall_hit(t_game *game);
 int	ver_wall_hit(t_game *game);
+double	norm_angle(double angle);
 
 #endif
