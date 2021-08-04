@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 11:15:43 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/02 09:37:22 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/04 12:12:44 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ void	init_ray(t_ray *ray)
 	ray->found_hor_hit = 0;
 	ray->found_ver_hit = 0;
 	ray->was_hit_ver = 0;
+}
+
+void	init_texture(t_texture *texture)
+{
+	texture->width = 32;
+	texture->height = 32;
 }
 
 /* Receives config and checks if values are equal to initialized 

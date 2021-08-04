@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:19:20 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/02 20:03:02 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/04 12:18:00 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,49 +21,61 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw(t_game *game, int map[MAP_H][MAP_W])
+void	draw(t_game *game)
 {
-	/*
+	// FLOOR & CEILING - MOVE TO DRAW3D?
 	int	x;
 	int	y;
-	int bl_w;
-	int bl_h;
 
-	// Draw Board
-	y = 0;
-	while (y < game->config.win_h)
+	x = 0;
+	while (x < game->config.win_w)
 	{
-		x = 0;
-		while (x < game->config.win_w)
+		y = 0;
+		while (y < game->config.win_h / 2)
 		{
-			bl_w = x / BLOCKSIZE;
-			bl_h = y / BLOCKSIZE;
-			if (map[bl_h][bl_w] == FLOOR)
-				my_mlx_pixel_put(&game->img, x, y, WHITE);
-			else if (map[bl_h][bl_w] == WALL || map[bl_h][bl_w] == PILLAR)
-				my_mlx_pixel_put(&game->img, x, y, ORANGE);
-			x++;
+			my_mlx_pixel_put(&game->img, x, y, game->config.ceiling_color);
+			y++;
 		}
-		y++;
+		while (y < game->config.win_h)
+		{
+			my_mlx_pixel_put(&game->img, x, y, game->config.floor_color);
+			y++;
+		}
+		x++;
 	}
 
-	// Player
-	my_mlx_pixel_put(&game->img, game->player.x, game->player.y, RED);
-	my_mlx_pixel_put(&game->img, game->player.x+1, game->player.y, RED);
-	my_mlx_pixel_put(&game->img, game->player.x+1, game->player.y+1, RED);
-	my_mlx_pixel_put(&game->img, game->player.x, game->player.y+1, RED);
-	*/
-
-	printf("%d\n", map[0][0]);
-	// Cast Rays
+	// Load Texture
+	//load_texture(game->config.no_texture, game);
+	
+	// Cast Rays & Draw 3d
 	cast_rays(game);
+}
 
+void	load_texture(char *path, t_game *game)
+{
+	game->texture.img.img = mlx_xpm_file_to_image(game->mlx.mlx, path, 
+			&game->texture.width, &game->texture.height);
+	if (!(game->texture.img.img))
+	{
+		printf("bad error ptr 1\n");
+		exit(1);
+	}
+	game->texture.img.addr = mlx_get_data_addr(game->texture.img.img,
+			&game->texture.img.bits_per_pixel,
+			&game->texture.img.line_length,
+			&game->texture.img.endian);
+	if (!(game->texture.img.addr))
+	{
+		printf("bad error ptr 2\n");
+		exit(1);
+	}
 }
 
 void	draw_3d(t_game *game, float col)
 {
 	float	dist_proj_plane;
 	float	proj_wall_height;
+	float	perp_dist;
 	int	wall_height;
 	int	wall_top_pix;
 	int	wall_bottom_pix;
@@ -73,8 +85,9 @@ void	draw_3d(t_game *game, float col)
 	x = col;
 	y = 0;
 
+	perp_dist = game->ray.hit_dist * cos(game->ray.angle - game->player.rot_ang);
 	dist_proj_plane = (game->config.win_w / 2) / tan(FOV / 2);
-	proj_wall_height = (BLOCKSIZE / game->ray.hit_dist) * dist_proj_plane;
+	proj_wall_height = (BLOCKSIZE / perp_dist) * dist_proj_plane;
 	wall_height = (int) proj_wall_height;
 
 	wall_top_pix = (game->config.win_h / 2) - (wall_height / 2);
@@ -85,16 +98,16 @@ void	draw_3d(t_game *game, float col)
 	if (wall_bottom_pix > game->config.win_h)
 		wall_bottom_pix = game->config.win_h; 
 	
-	//printf("wall_top_pix:%d wall_bottom_pix:%d\n", wall_top_pix, wall_bottom_pix);
 	while (y < game->config.win_h)
 	{
 		while (y >= wall_top_pix && y < wall_bottom_pix)
 		{
-			//printf("Printing\n");
-			my_mlx_pixel_put(&game->img, x, y, RED);
+			if (game->ray.was_hit_ver)
+				my_mlx_pixel_put(&game->img, x, y, GRAY);
+			else
+				my_mlx_pixel_put(&game->img, x, y, WHITE);
 			y++;
 		}
-		my_mlx_pixel_put(&game->img, x, y, 0);
 		y++;
 	}
 }

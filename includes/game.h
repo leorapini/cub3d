@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:19:17 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/02 19:54:46 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/04 12:13:11 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define	ORANGE 16755200
 # define	RED 16711680
 # define	WHITE 16777215
+# define	GRAY 8421504
+# define	BLACK 0
 
 # define	WALL 1
 # define	PILLAR 2
@@ -106,8 +108,8 @@ typedef struct s_ray
 	int		ver_hit_cont;
 	int		found_hor_hit;
 	int		found_ver_hit;
-	float		hor_hit_dist;
-	float		ver_hit_dist;
+	double		hor_hit_dist;
+	double		ver_hit_dist;
 	int		was_hit_ver;
 }		t_ray;
 
@@ -125,6 +127,13 @@ typedef struct s_data
 	int		pos_y;
 }		t_data;
 
+typedef struct s_texture
+{
+	t_data	img;
+	int	width;
+	int	height;
+}		t_texture;
+
 typedef struct	s_game
 {
 	t_mlx		mlx;
@@ -132,12 +141,14 @@ typedef struct	s_game
 	t_data		img;
 	t_player	player;
 	t_ray		ray;
+	t_texture	texture;
 }		t_game;
 
 /* CONFIG */
 void	init_player(t_player *player);
 void	init_config(t_config *config);
 void	init_ray(t_ray *ray);
+void	init_texture(t_texture *texture);
 void	check_config(t_config config);
 void	free_config(t_config *config);
 
@@ -153,7 +164,7 @@ int		check_file_exists(char const *file);
 int		parse_map(char *line, t_config *config);
 
 /* ML_CONFIG */
-void	game_config(t_config config, t_player player, t_ray ray, t_mlx *mlx, t_game *game, t_data *img);
+void	game_config(t_config config, t_player player, t_ray ray, t_texture texture, t_mlx *mlx, t_game *game, t_data *img);
 
 /* CAMERA */
 void	update_camera(t_game game);
@@ -167,10 +178,11 @@ void	error(char *message);
 
 /* DRAW  */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	draw(t_game *game, int map[MAP_H][MAP_W]);
+void	draw(t_game *game);
 int		where_it_lands(t_config config, int new_x, int new_y);
 int	setup_player_pos(t_player *player, t_config *config, int map[MAP_H][MAP_W]);
 void	draw_3d(t_game *game, float col);
+void	load_texture(char *path, t_game *game);
 
 /* RAYCASTING */
 void	cast_rays(t_game *game);

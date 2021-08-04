@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 18:02:07 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/02 20:02:23 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/04 11:52:25 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static float	hit_distance(float h_x, float h_y, float p_x, float p_y)
 	float distance;
 	
 	distance = sqrt(pow((double)(h_x - p_x), 2) + pow((double)(h_y - p_y), 2));
-	//printf("distance_hit_dist:%f\n", distance);
 	return (distance);
 }
 
@@ -26,10 +25,8 @@ double	norm_angle(double angle)
 	double	l_angle;
 
 	l_angle = remainder(angle, (2 * PI));
-	//printf("l_angle:%f angle:%f\n", l_angle, angle);
 	if (l_angle < 0)
 		l_angle = (2 * PI) + l_angle;
-	//printf("final_angle:%f\n", l_angle);
 	return (l_angle);
 }
 
@@ -46,21 +43,11 @@ void	cast_rays(t_game *game)
 
 	// First Ray
 	game->ray.angle = game->player.rot_ang - (FOV / 2);
-	//game->ray.angle = norm_angle(game->ray.angle);
-	//printf("\nORIG RAY:%f\n", game->ray.angle);
-	//printf("NORM RAY:%f\n", game->ray.angle);
 	while (col < game->config.win_w)
 	{
 		game->ray.angle = norm_angle(game->ray.angle);
-		//printf("\nRAY:%f ANG:%f\n", col, game->ray.angle);
 		wall_hit(game);
 		draw_3d(game, col);
-		/*
-		my_mlx_pixel_put(&game->img, game->ray.hit_x, game->ray.hit_y, RED);
-		my_mlx_pixel_put(&game->img, game->ray.hit_x+1, game->ray.hit_y, RED);
-		my_mlx_pixel_put(&game->img, game->ray.hit_x+1, game->ray.hit_y+1, RED);
-		my_mlx_pixel_put(&game->img, game->ray.hit_x, game->ray.hit_y+1, RED);	
-		*/
 		game->ray.angle = game->ray.angle + FOV / num_rays;
 		col++;
 	}
@@ -71,6 +58,8 @@ int	wall_hit(t_game *game)
 {
 	hor_wall_hit(game);
 	ver_wall_hit(game);
+	
+	game->ray.was_hit_ver = 0;	
 
 	if (game->ray.found_hor_hit)
 	{
@@ -89,8 +78,10 @@ int	wall_hit(t_game *game)
 	else
 		game->ray.ver_hit_dist = (double) INT_MAX;
 
-	if (game->ray.hor_hit_dist < game->ray.ver_hit_dist)
+	if (game->ray.hor_hit_dist <= game->ray.ver_hit_dist)
 	{
+		//printf("HOR hor_dis:%f ver_dis:%f\n", game->ray.hor_hit_dist,
+		//		game->ray.ver_hit_dist);
 		game->ray.hit_x = game->ray.hor_hit_x;
 		game->ray.hit_y = game->ray.hor_hit_y;
 		game->ray.hit_dist = game->ray.hor_hit_dist;	

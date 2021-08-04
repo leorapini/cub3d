@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:19:20 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/07/29 17:12:03 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/04 12:00:37 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ int	main(int argc, char **argv)
 	t_game		game;
 	t_player	player;
 	t_ray		ray;
+	t_texture	texture;
 
 	init_config(&config);
 	init_player(&player);
 	init_ray(&ray);
+	init_texture(&texture);
 	if (argc < 2)
 		parse_cub("./maps/1.cub", &config);
 	else if (argc == 2)
@@ -42,8 +44,8 @@ int	main(int argc, char **argv)
 		error("Too many arguments");
 	check_config(config);
 	setup_player_pos(&player, &config, config.map);
-	game_config(config, player, ray, &mlx, &game, &img);
-	draw(&game, config.map);
+	game_config(config, player, ray, texture, &mlx, &game, &img);
+	draw(&game);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
 	mlx_hook(mlx.win, KEY_PRESS, KEY_PRESS_MASK, key_control, &game);
 	mlx_hook(mlx.win, CLIENT_MESSAGE, CLNT_MSG_MASK, goodbye, &game);
