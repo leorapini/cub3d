@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:19:20 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/04 12:00:37 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/06 11:46:17 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ int	main(int argc, char **argv)
 	else
 		error("Too many arguments");
 	check_config(config);
-	setup_player_pos(&player, &config, config.map);
+	setup_player_pos(&player, config.map);
 	game_config(config, player, ray, texture, &mlx, &game, &img);
+	load_texture(config.no_texture, &game);
 	draw(&game);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
 	mlx_hook(mlx.win, KEY_PRESS, KEY_PRESS_MASK, key_control, &game);

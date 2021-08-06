@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:19:17 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/04 12:13:11 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/06 11:41:04 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 # define	MAP_W 200
 # define	MAP_H 200
-# define	BLOCKSIZE 32
+# define	BLOCKSIZE 64
 
 # define	ORANGE 16755200
 # define	RED 16711680
@@ -132,6 +132,8 @@ typedef struct s_texture
 	t_data	img;
 	int	width;
 	int	height;
+	int	offset_x;
+	int	offset_y;
 }		t_texture;
 
 typedef struct	s_game
@@ -180,7 +182,7 @@ void	error(char *message);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw(t_game *game);
 int		where_it_lands(t_config config, int new_x, int new_y);
-int	setup_player_pos(t_player *player, t_config *config, int map[MAP_H][MAP_W]);
+int	setup_player_pos(t_player *player, int map[MAP_H][MAP_W]);
 void	draw_3d(t_game *game, float col);
 void	load_texture(char *path, t_game *game);
 
