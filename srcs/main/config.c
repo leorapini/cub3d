@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 11:15:43 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/06 10:11:15 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/06 16:16:07 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 /* Receives config address and initializes it with starting values*/
 void	init_config(t_config *config)
 {
-	config->win_h = 0;
-	config->win_w = 0;
+	config->win_h = WIN_H;
+	config->win_w = WIN_W;
 	config->no_texture = NULL;
 	config->so_texture = NULL;
 	config->we_texture = NULL;
 	config->ea_texture = NULL;
-	config->spr_texture = NULL;
 	config->floor_color = 0;
 	config->ceiling_color = 0;
 }
@@ -32,7 +31,7 @@ void	init_player(t_player *player)
 	player->y = 0;
 	player->turn_dir = 0;
 	player->walk_dir = 0;
-	player->rot_ang = PI / 2;
+	player->rot_ang = 0;
 }
 
 void	init_ray(t_ray *ray)
@@ -63,9 +62,7 @@ values and calls error function if true. Meaning they weren't
 properly set up. */
 void	check_config(t_config config)
 {
-	if (config.win_h == 0 || config.win_w == 0)
-		error("Missing Resolution values");
-	else if (config.no_texture == NULL)
+	if (config.no_texture == NULL)
 		error("Missing North Texture");
 	else if (config.so_texture == NULL)
 		error("Missing South Texture");
@@ -73,8 +70,6 @@ void	check_config(t_config config)
 		error("Missing West Texture");
 	else if (config.ea_texture == NULL)
 		error("Missing East Texture");
-	else if (config.spr_texture == NULL)
-		error("Missing Sprite Texture");
 	else if (config.floor_color == 0)
 		error("Missing Floor Color");
 	else if (config.ceiling_color == 0)
@@ -93,6 +88,4 @@ void	free_config(t_config *config)
 		free(config->we_texture);
 	if (config->ea_texture != NULL)
 		free(config->ea_texture);
-	if (config->spr_texture != NULL)
-		free(config->spr_texture);
 }

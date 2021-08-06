@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:19:17 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/06 11:41:04 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/06 18:01:52 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define	MAP_W 200
 # define	MAP_H 200
 # define	BLOCKSIZE 64
+# define	WIN_W 800
+# define	WIN_H 600 
 
 # define	ORANGE 16755200
 # define	RED 16711680
@@ -39,10 +41,11 @@
 # define	BLACK 0
 
 # define	WALL 1
-# define	PILLAR 2
 # define	FLOOR 8
-# define	USER 9
 # define	EMPTY 7
+# define	END_LINE 888
+# define	END_TABLE 999
+
 
 # define	STEPS 2
 # define	ANGLE 2
@@ -52,7 +55,9 @@
 # define	FOV 60.0 * (PI / 180.0)
 
 // New Defines
-# define	ROT_ANG PI / 2
+# define	HALF_PI 0.5 * PI
+# define	TWO_PI 2 * PI
+# define	ONEFIVE_PI 1.5 * PI
 # define	MOV_SPEED 3.0
 # define	ROT_SPEED 3.0 * (PI / 180.0)
 
@@ -73,13 +78,12 @@ typedef struct s_mlx
 
 typedef struct s_config
 {
-	float		win_h;
-	float		win_w;
+	int		win_h;
+	int		win_w;
 	char	*no_texture;
 	char	*so_texture;
 	char	*we_texture;
 	char	*ea_texture;
-	char	*spr_texture;
 	int		floor_color;
 	int		ceiling_color;
 	int		map[MAP_H][MAP_W];
@@ -164,6 +168,7 @@ int		check_file_exists(char const *file);
 
 /* PARSE MAP */
 int		parse_map(char *line, t_config *config);
+int		check_map(int map[MAP_W][MAP_H]);
 
 /* ML_CONFIG */
 void	game_config(t_config config, t_player player, t_ray ray, t_texture texture, t_mlx *mlx, t_game *game, t_data *img);

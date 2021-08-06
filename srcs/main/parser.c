@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:34:04 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/06/10 18:03:52 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/06 14:39:23 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ static int	parse_textures(char *name, char *file_location, t_config *config)
 		config->we_texture = ft_strdup(file_location);
 	else if (!(ft_strncmp(name, "EA", 2)))
 		config->ea_texture = ft_strdup(file_location);
-	else if (!(ft_strncmp(name, "S", 1)))
-		config->spr_texture = ft_strdup(file_location);
 	return (0);
 }
 
@@ -45,19 +43,6 @@ static int	parse_colors(char *name, char *rgb_color, t_config *config)
 	return (0);
 }
 
-/* Parses Resolution (R) values. Receives two strings and config */
-static int	parse_res(char *size_w, char *size_h, t_config *config)
-{
-	if (!size_w || !size_h)
-		error("Missing R value");
-	if (ft_strisdigit(size_w) == 0
-		|| ft_strisdigit(size_h) == 0)
-		error("R values aren't digits");
-	config->win_w = ft_atoi(size_w);
-	config->win_h = ft_atoi(size_h);
-	return (0);
-}
-
 /* Receives a string and config and parses it looking for the keywords */
 static int	parse_line(char *line, t_config *config)
 {
@@ -66,13 +51,10 @@ static int	parse_line(char *line, t_config *config)
 	if (ft_strlen(line) == 0)
 		return (0);
 	words_line = ft_split(line, ' ');
-	if (!(ft_strncmp(words_line[0], "R", 1)))
-		parse_res(words_line[1], words_line[2], config);
-	else if (!(ft_strncmp(words_line[0], "NO", 2))
+	if (!(ft_strncmp(words_line[0], "NO", 2))
 		|| !(ft_strncmp(words_line[0], "SO", 2))
 		|| !(ft_strncmp(words_line[0], "WE", 2))
-		|| !(ft_strncmp(words_line[0], "EA", 2))
-		|| !(ft_strncmp(words_line[0], "S", 1)))
+		|| !(ft_strncmp(words_line[0], "EA", 2)))
 		parse_textures(words_line[0], words_line[1], config);
 	else if (!(ft_strncmp(words_line[0], "F", 1))
 		|| !(ft_strncmp(words_line[0], "C", 1)))

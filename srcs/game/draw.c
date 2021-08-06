@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:19:20 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/06 11:41:17 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/06 16:13:02 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,18 @@ int	where_it_lands(t_config config, int new_x, int new_y)
 		return (0);
 }
 
+static void	set_ang(t_player *player, int dir)
+{
+	if (dir == 'S')
+		player->rot_ang = HALF_PI;
+	else if (dir == 'N')
+		player->rot_ang = ONEFIVE_PI;
+	else if (dir == 'E')
+		player->rot_ang = PI;
+	else 
+		player->rot_ang = TWO_PI;
+}
+
 int	setup_player_pos(t_player *player, int map[MAP_H][MAP_W])
 {
 	int	bl_h;
@@ -150,10 +162,12 @@ int	setup_player_pos(t_player *player, int map[MAP_H][MAP_W])
 		bl_h = 0;
 		while (bl_h < MAP_H)
 		{
-			if (map[bl_h][bl_w] == USER)
+			if (map[bl_h][bl_w] == 'S' || map[bl_h][bl_w] == 'N'
+				|| map[bl_h][bl_w] == 'E' || map[bl_h][bl_w] == 'W')
 			{
 				player->x = bl_w * BLOCKSIZE;
 				player->y = bl_h * BLOCKSIZE;
+				set_ang(player, map[bl_h][bl_w]); 
 				map[bl_h][bl_w] = FLOOR;
 				return (0);
 			}

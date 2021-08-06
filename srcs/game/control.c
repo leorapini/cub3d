@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 13:40:27 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/02 16:20:32 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/06 17:29:49 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ void	update_map(t_game *game, int key)
 	int	new_y;
 	int	new_x;
 	int	step;
+	float	angle;
 
 	new_y = game->player.y;
 	new_x = game->player.x;
 	if (key == KEY_A)
-		printf("KEY A\n");
+		game->player.walk_dir = -1;
 	else if (key == KEY_D)
-		printf("KEY D\n");
+		game->player.walk_dir = 1;
 	else if (key == KEY_W)
 		game->player.walk_dir = 1;
 	else if (key == KEY_S)
@@ -35,9 +36,14 @@ void	update_map(t_game *game, int key)
 		game->player.turn_dir = 1;
 	game->player.rot_ang = game->player.rot_ang + game->player.turn_dir * 
 				ROT_SPEED;
+	game->player.rot_ang = norm_angle(game->player.rot_ang);
 	step = game->player.walk_dir * MOV_SPEED;
-	new_x = new_x + (int) (cos(game->player.rot_ang) * step);
-	new_y = new_y + (int) (sin(game->player.rot_ang) * step); 
+	if (key == KEY_A || key == KEY_D)
+		angle = PI / 2;
+	else
+		angle = 0;
+	new_x = new_x + (int) (cos(game->player.rot_ang + angle) * step);
+	new_y = new_y + (int) (sin(game->player.rot_ang + angle) * step); 
 	if (where_it_lands(game->config, new_x, new_y))
 	{
 		game->player.x = new_x;

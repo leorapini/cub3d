@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:19:20 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/06 11:46:17 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/06 18:02:20 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(int argc, char **argv)
 	else
 		error("Too many arguments");
 	check_config(config);
+	check_map(config.map);
 	setup_player_pos(&player, config.map);
 	game_config(config, player, ray, texture, &mlx, &game, &img);
 	load_texture(config.no_texture, &game);

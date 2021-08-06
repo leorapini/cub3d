@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 18:02:07 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/06 11:33:40 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/06 14:31:18 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,20 +224,20 @@ int	hor_wall_hit(t_game *game)
 		hit_y = hit_y + BLOCKSIZE;
 	hit_x = p_x + (hit_y - p_y) / tan(r_ang);
 
-	printf("\nr_ang:%f\n", r_ang);
-	printf("p_y:%f p_x:%f\n", p_y, p_x);
-	printf("orig hit_y:%f hit_x:%f\n", hit_y, hit_x);
+	//printf("\nr_ang:%f\n", r_ang);
+	//printf("p_y:%f p_x:%f\n", p_y, p_x);
+	//printf("orig hit_y:%f hit_x:%f\n", hit_y, hit_x);
 
 	// Calculate x_step and y_step
 	y_step = BLOCKSIZE;	
 	if (!(r_ang > 0 && r_ang < PI)) // facing up
 	{
-		printf("HOR UP\n");
+		//printf("HOR UP\n");
 		y_step = y_step * -1;
 	}
 	else
 	{
-		printf("HOR DOWN\n");
+		//printf("HOR DOWN\n");
 		y_step = y_step * 1; // facing down
 	}
 	x_step = BLOCKSIZE / tan(r_ang);
@@ -262,7 +262,7 @@ int	hor_wall_hit(t_game *game)
 		//printf("ELSE HOR RIGHT\n");
 		x_step = x_step * 1;	
 	}
-	printf("y_step:%f x_step:%f\n", y_step, x_step);
+	//printf("y_step:%f x_step:%f\n", y_step, x_step);
 	// Calculate Hits
 	//if (!(r_ang > 0 && r_ang < PI)) // facing up
 	//	hit_y--;
@@ -288,7 +288,7 @@ int	hor_wall_hit(t_game *game)
 			game->ray.hor_hit_cont = 
 				game->config.map[(int)floor(hit_y / BLOCKSIZE)][(int)floor(hit_x / BLOCKSIZE)];
 			game->ray.found_hor_hit = 1;
-			printf("HIT FOUND\n");	
+			//printf("HIT FOUND\n");	
 			break ;
 		}
 		else
@@ -297,6 +297,6 @@ int	hor_wall_hit(t_game *game)
 			hit_y = hit_y + y_step;
 		}
 	}
-	printf("final hit_y:%f hit_x:%f\n", hit_y, hit_x);
+	//printf("final hit_y:%f hit_x:%f\n", hit_y, hit_x);
 	return (0);
 }
