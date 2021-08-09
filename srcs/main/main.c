@@ -6,16 +6,17 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:19:20 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/06 18:02:20 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/09 18:41:54 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 #include "mlx.h"
 
-static int	goodbye(void)
+int	goodbye(t_game *game)
 {
 	printf("Goodbye!\n");
+	free_config(&game->config);
 	exit(0);
 	return (0);
 }
@@ -47,11 +48,10 @@ int	main(int argc, char **argv)
 	setup_player_pos(&player, config.map);
 	game_config(config, player, ray, texture, &mlx, &game, &img);
 	load_texture(config.no_texture, &game);
-	draw(&game);
-	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
-	mlx_hook(mlx.win, KEY_PRESS, KEY_PRESS_MASK, key_control, &game);
-	mlx_hook(mlx.win, CLIENT_MESSAGE, CLNT_MSG_MASK, goodbye, &game);
-	mlx_loop(mlx.mlx);
-	free_config(&config);
+	update_camera(&game);
+	mlx_loop_hook(game.mlx.mlx, update_camera, &game);
+	mlx_hook(game.mlx.win, KEY_PRESS, KEY_PRESS_MASK, key_control, &game);
+	mlx_hook(game.mlx.win, CLIENT_MESSAGE, CLNT_MSG_MASK, goodbye, &game);
+	mlx_loop(game.mlx.mlx);
 	return (0);
 }

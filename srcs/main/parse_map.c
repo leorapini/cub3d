@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 17:49:54 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/06 18:23:33 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/09 11:51:26 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	parse_map(char *line, t_config *config)
 			config->map[y][x] = EMPTY;
 		x++;
 	}
-	config->map[y][x] = END_LINE;
+	config->map[y][x] = EMPTY;
+	config->map[y][x + 1] = END_LINE;
 	y++;
 	config->map[y][0] = END_TABLE;
 	return (0);
@@ -49,24 +50,42 @@ int	check_map(int map[MAP_W][MAP_H])
 
 	first_floor = 0;
 	last_floor = 0;
-	first_row = 0;
-	last_row = 0;
+	first_row = 1;
+	last_row = 1;
 	y = 0;
 	x = 0;
 	while (map[y][x] != END_TABLE)
 	{
 		while (map[y][x] != END_LINE)
 		{
-			//printf("\nNEW LINE map[%d][%d]\n", y, x);
-			if (map[y][x] == FLOOR)
-			{
-				printf("FOUND FLOOR\n");
-			}
+			if (map[y][x] == FLOOR && y == 0)
+				error(".cub MAP ERROR - 0 in top row");
+			if (map[y][x] == EMPTY && map[y + 1][x] == FLOOR)
+				error(".cub MAP ERROR - empty space above 0");
+			if (map[y][x] == FLOOR && x == 0)
+				error(".cub MAP ERROR - 0 not precede by 1");
+			if ((map[y][x] == FLOOR && map[y][x - 1] == EMPTY)
+				|| (map[y][x] == FLOOR && map[y][x + 1] == EMPTY))
+				error(".cub MAP ERROR - 0 with empty space");
 			x++;
 		}
 		x = 0;
 		y++;		
+	}
+	y--;
+	x = 0;
+	while (map[y][x] != END_TABLE)
+	{
+		while(map[y][x] != END_LINE)
+		{
+			if (map[y][x] == FLOOR)
+				error(".cub MAP ERROR - 0 is last row");
+			if (map[y][x] == EMPTY && map[y - 1][x] == FLOOR)
+				error(".cub MAP ERROR - 0 with with space above");
+			x++;
+		}
+		x = 0;
+		y++;	
 	}	
-	printf("END OF BOARD\n");
 	return (0);
 }

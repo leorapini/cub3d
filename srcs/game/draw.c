@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:19:20 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/06 16:13:02 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/09 19:05:34 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,6 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void	draw(t_game *game)
 {
-	// FLOOR & CEILING - MOVE TO DRAW3D?
-	int	x;
-	int	y;
-
-	x = 0;
-	while (x < game->config.win_w)
-	{
-		y = 0;
-		while (y < game->config.win_h / 2)
-		{
-			my_mlx_pixel_put(&game->img, x, y, game->config.ceiling_color);
-			y++;
-		}
-		while (y < game->config.win_h)
-		{
-			my_mlx_pixel_put(&game->img, x, y, game->config.floor_color);
-			y++;
-		}
-		x++;
-	}
-
 	// Cast Rays & Draw 3d
 	cast_rays(game);
 }
@@ -109,19 +88,22 @@ void	draw_3d(t_game *game, float col)
 	
 	while (y < game->config.win_h)
 	{
+		while (y < wall_top_pix)
+		{
+			my_mlx_pixel_put(&game->img, x, y, game->config.ceiling_color);
+			y++;
+		}
 		while (y >= wall_top_pix && y < wall_bottom_pix)
 		{
-			/*
-			if (game->ray.was_hit_ver)
-				my_mlx_pixel_put(&game->img, x, y, GRAY);
-			else
-				my_mlx_pixel_put(&game->img, x, y, WHITE);
-			*/
 			color = texture_color(game, wall_top_pix, wall_height, y);
 			my_mlx_pixel_put(&game->img, x, y, color);
 			y++;
 		}
-		y++;
+		while (y < game->config.win_h)
+		{
+			my_mlx_pixel_put(&game->img, x, y, game->config.floor_color);
+			y++;
+		}
 	}
 }
 

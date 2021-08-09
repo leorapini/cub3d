@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 13:40:27 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/06 17:29:49 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/09 17:33:37 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	update_map(t_game *game, int key)
 int	key_control(int key, t_game *game)
 {
 	if (key == KEY_ESC)
-		exit(0);
+		goodbye(game);
 	else if (key == KEY_A)
 		update_map(game, KEY_A);
 	else if (key == KEY_D)
@@ -71,6 +71,6 @@ int	key_control(int key, t_game *game)
 		update_map(game, KEY_RIGHT);
 	else
 		printf("%d pressed\n", key);
-	update_camera(*game);
+	update_camera(game);
 	return (0);
 }

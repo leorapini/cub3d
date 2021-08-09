@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:19:17 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/06 18:01:52 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/09 18:18:44 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define	KEY_PRESS	02
 # define	KEY_PRESS_MASK	1L<<0
 # define	CLIENT_MESSAGE	33
-# define	CLNT_MSG_MASK	1L<<19
+# define	CLNT_MSG_MASK	1L<<17
 
 # define	MAP_W 200
 # define	MAP_H 200
@@ -150,6 +150,9 @@ typedef struct	s_game
 	t_texture	texture;
 }		t_game;
 
+/* MAIN */
+int	goodbye(t_game *game);
+
 /* CONFIG */
 void	init_player(t_player *player);
 void	init_config(t_config *config);
@@ -174,7 +177,7 @@ int		check_map(int map[MAP_W][MAP_H]);
 void	game_config(t_config config, t_player player, t_ray ray, t_texture texture, t_mlx *mlx, t_game *game, t_data *img);
 
 /* CAMERA */
-void	update_camera(t_game game);
+int	update_camera(t_game *game);
 
 /* CONTROL */
 void	update_map(t_game *game, int key);
