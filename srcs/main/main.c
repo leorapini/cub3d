@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:19:20 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/09 18:41:54 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/10 13:12:25 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,10 @@ int	main(int argc, char **argv)
 	t_game		game;
 	t_player	player;
 	t_ray		ray;
-	t_texture	texture;
 
 	init_config(&config);
 	init_player(&player);
 	init_ray(&ray);
-	init_texture(&texture);
 	if (argc < 2)
 		parse_cub("./maps/1.cub", &config);
 	else if (argc == 2)
@@ -46,8 +44,7 @@ int	main(int argc, char **argv)
 	check_config(config);
 	check_map(config.map);
 	setup_player_pos(&player, config.map);
-	game_config(config, player, ray, texture, &mlx, &game, &img);
-	load_texture(config.no_texture, &game);
+	game_config(config, player, ray, &mlx, &game, &img);
 	update_camera(&game);
 	mlx_loop_hook(game.mlx.mlx, update_camera, &game);
 	mlx_hook(game.mlx.win, KEY_PRESS, KEY_PRESS_MASK, key_control, &game);

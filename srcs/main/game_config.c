@@ -6,14 +6,14 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 15:49:24 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/09 18:50:51 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/10 13:55:37 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 #include "mlx.h"
 
-void	game_config(t_config config, t_player player, t_ray ray, t_texture texture, t_mlx *mlx, t_game *game, t_data *img)
+void	game_config(t_config config, t_player player, t_ray ray, t_mlx *mlx, t_game *game, t_data *img)
 {
 	mlx->mlx = mlx_init();
 	mlx->win = mlx_new_window(mlx->mlx, config.win_w, config.win_h, "Cub3d");
@@ -28,5 +28,9 @@ void	game_config(t_config config, t_player player, t_ray ray, t_texture texture,
 	game->player = player;
 	game->ray = ray;
 	game->img = *img;
-	game->texture = texture;
+	load_texture(&game->texture, game->config.no_texture, game);
+	load_texture(&game->no_texture, game->config.no_texture, game);
+	load_texture(&game->we_texture, game->config.we_texture, game);
+	load_texture(&game->ea_texture, game->config.ea_texture, game);
+	load_texture(&game->so_texture, game->config.so_texture, game);
 }

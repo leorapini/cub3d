@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:19:20 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/09 19:05:34 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/10 14:34:27 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,37 +27,6 @@ void	draw(t_game *game)
 	cast_rays(game);
 }
 
-// MOVE TO CONFIG - It's called in main as of now
-void	load_texture(char *path, t_game *game)
-{
-	game->texture.img.img = mlx_xpm_file_to_image(game->mlx.mlx, path, 
-			&game->texture.width, &game->texture.height);
-	if (!(game->texture.img.img))
-	{
-		printf("bad texture img.img\n");
-		exit(1);
-	}
-	game->texture.img.addr = mlx_get_data_addr(game->texture.img.img,
-			&game->texture.img.bits_per_pixel,
-			&game->texture.img.line_length,
-			&game->texture.img.endian);
-	if (!(game->texture.img.addr))
-	{
-		printf("bad teture img.addr\n");
-		exit(1);
-	}
-}
-
-static int	texture_color(t_game *game, int wall_top_pix, int wall_height, int y)
-{
-	game->texture.offset_y = (y - wall_top_pix) * 
-			((float) game->texture.height / wall_height);
-	return (*(unsigned int *)(game->texture.img.addr + (game->texture.offset_y *
-			game->texture.img.line_length + game->texture.offset_x *
-			(game->texture.img.bits_per_pixel / 8))));
-}
-
-
 void	draw_3d(t_game *game, float col)
 {
 	float	dist_proj_plane;
@@ -69,6 +38,7 @@ void	draw_3d(t_game *game, float col)
 	float	x;
 	float	y;
 	int	color;
+	t_texture	*texture;
 
 	x = col;
 	y = 0;
@@ -94,8 +64,24 @@ void	draw_3d(t_game *game, float col)
 			y++;
 		}
 		while (y >= wall_top_pix && y < wall_bottom_pix)
-		{
-			color = texture_color(game, wall_top_pix, wall_height, y);
+		{	
+			if (game->ray.was_hit_ver)
+			{
+				if (!(game->ray.angle < HALF_PI
+					|| game->ray.angle > ONEFIVE_PI))
+					texture = &game->we_texture;
+				else
+					texture = &game->ea_texture;
+			}
+			else
+			{
+				if (!(game->ray.angle > 0 && game->ray.angle < PI))
+					texture = &game->no_texture;
+				else
+					texture = &game->so_texture;
+			}
+			texture_offset_x(texture, game);
+			color = texture_color(texture, wall_top_pix, wall_height, y);
 			my_mlx_pixel_put(&game->img, x, y, color);
 			y++;
 		}
@@ -128,9 +114,11 @@ static void	set_ang(t_player *player, int dir)
 	else if (dir == 'N')
 		player->rot_ang = ONEFIVE_PI;
 	else if (dir == 'E')
-		player->rot_ang = PI;
-	else 
 		player->rot_ang = TWO_PI;
+	else if (dir == 'W') 
+		player->rot_ang = PI;
+	else
+		error(".cub WRONG LETTER");
 }
 
 int	setup_player_pos(t_player *player, int map[MAP_H][MAP_W])

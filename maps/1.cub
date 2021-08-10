@@ -1,17 +1,17 @@
-NO ./images/open.xpm
-SO ./images/open.xpm
+NO ./images/red.xpm
+SO ./images/greystone.xpm
 WE ./images/open.xpm
-EA ./images/open.xpm
+EA ./images/eagle.xpm
 
-F 200,100,0
-C 225,30,0
+F 160,160,160
+C 51,153,255
 
 111 111111
 101 10000111
 101110000001
-1000000W0001
+100000000W01
 10011000000111
 100110000001
 100000000001
 111001100001
-   11  1111111111
+111111111111

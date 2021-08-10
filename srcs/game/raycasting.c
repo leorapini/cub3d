@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 18:02:07 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/06 14:31:18 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/10 14:01:22 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,6 @@ double	norm_angle(double angle)
 	return (l_angle);
 }
 
-static void	texture_offset_x(t_game *game)
-{
-	if (game->ray.was_hit_ver)
-	{
-		game->texture.offset_x = (int) game->ray.hit_y % game->texture.width;
-	//	printf("offset:%d was vert\n", game->texture.offset_x);	
-	}
-	else
-	{
-		game->texture.offset_x = (int) game->ray.hit_x % game->texture.width;
-	//	printf("offset:%d was hor\n", game->texture.offset_x);
-	}
-}
-
 void	cast_rays(t_game *game)
 {
 	float	col;
@@ -61,7 +47,6 @@ void	cast_rays(t_game *game)
 	{
 		game->ray.angle = norm_angle(game->ray.angle);
 		wall_hit(game);
-		texture_offset_x(game);
 		draw_3d(game, col);
 		game->ray.angle = game->ray.angle + FOV / num_rays;
 		col++;

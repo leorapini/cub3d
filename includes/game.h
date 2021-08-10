@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:19:17 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/09 18:18:44 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/10 14:14:22 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,10 @@ typedef struct	s_game
 	t_player	player;
 	t_ray		ray;
 	t_texture	texture;
+	t_texture	no_texture;
+	t_texture	so_texture;
+	t_texture	we_texture;
+	t_texture	ea_texture;
 }		t_game;
 
 /* MAIN */
@@ -174,7 +178,7 @@ int		parse_map(char *line, t_config *config);
 int		check_map(int map[MAP_W][MAP_H]);
 
 /* ML_CONFIG */
-void	game_config(t_config config, t_player player, t_ray ray, t_texture texture, t_mlx *mlx, t_game *game, t_data *img);
+void	game_config(t_config config, t_player player, t_ray ray, t_mlx *mlx, t_game *game, t_data *img);
 
 /* CAMERA */
 int	update_camera(t_game *game);
@@ -192,7 +196,6 @@ void	draw(t_game *game);
 int		where_it_lands(t_config config, int new_x, int new_y);
 int	setup_player_pos(t_player *player, int map[MAP_H][MAP_W]);
 void	draw_3d(t_game *game, float col);
-void	load_texture(char *path, t_game *game);
 
 /* RAYCASTING */
 void	cast_rays(t_game *game);
@@ -200,5 +203,10 @@ int	wall_hit(t_game *game);
 int	hor_wall_hit(t_game *game);
 int	ver_wall_hit(t_game *game);
 double	norm_angle(double angle);
+
+/* TEXTURES */
+void	load_texture(t_texture *cur_texture, char *path, t_game *game);
+void	texture_offset_x(t_texture *cur_texture, t_game *game);
+int	texture_color(t_texture *cur_texture, int wall_top_pix, int wall_height, int y);
 
 #endif
