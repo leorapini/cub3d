@@ -76,7 +76,7 @@ void	check_config(t_config config)
 		error("Missing Ceiling Color");
 }
 
-/* Receibes config address and frees memory appointed to each 
+/* Receives config address and frees memory appointed to each 
 of the config items */
 void	free_config(t_config *config)
 {

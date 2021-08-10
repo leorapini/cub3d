@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:19:17 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/10 14:14:22 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/10 15:00:41 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ typedef struct	s_game
 
 /* MAIN */
 int	goodbye(t_game *game);
+void	error(char *message);
 
 /* CONFIG */
 void	init_player(t_player *player);
@@ -177,25 +178,21 @@ int		check_file_exists(char const *file);
 int		parse_map(char *line, t_config *config);
 int		check_map(int map[MAP_W][MAP_H]);
 
-/* ML_CONFIG */
+/* GAME_CONFIG */
 void	game_config(t_config config, t_player player, t_ray ray, t_mlx *mlx, t_game *game, t_data *img);
-
-/* CAMERA */
-int	update_camera(t_game *game);
 
 /* CONTROL */
 void	update_map(t_game *game, int key);
 int		key_control(int key, t_game *game);
 
-/* ERROR HANDLING */
-void	error(char *message);
+/* BOARD */
+int	setup_player_pos(t_player *player, int map[MAP_H][MAP_W]);
+int		where_it_lands(t_config config, int new_x, int new_y);
 
 /* DRAW  */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	draw(t_game *game);
-int		where_it_lands(t_config config, int new_x, int new_y);
-int	setup_player_pos(t_player *player, int map[MAP_H][MAP_W]);
 void	draw_3d(t_game *game, float col);
+int	update_camera(t_game *game);
 
 /* RAYCASTING */
 void	cast_rays(t_game *game);

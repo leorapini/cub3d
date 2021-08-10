@@ -21,10 +21,17 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw(t_game *game)
+int	update_camera(t_game *game)
 {
-	// Cast Rays & Draw 3d
+	if (game->img.img)
+		mlx_destroy_image(game->mlx.mlx, game->img.img);
+	game->img.img = mlx_new_image(game->mlx.mlx, game->config.win_w,
+					game->config.win_h);
+	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel,
+				&game->img.line_length, &game->img.endian);	
 	cast_rays(game);
+	mlx_put_image_to_window(game->mlx.mlx, game->mlx.win, game->img.img, 0, 0);
+	return (0);
 }
 
 void	draw_3d(t_game *game, float col)
@@ -93,58 +100,3 @@ void	draw_3d(t_game *game, float col)
 	}
 }
 
-
-int	where_it_lands(t_config config, int new_x, int new_y)
-{
-	int	bl_h;
-	int	bl_w;
-
-	bl_h = new_y / BLOCKSIZE;
-	bl_w = new_x / BLOCKSIZE;
-	if (config.map[bl_h][bl_w] == FLOOR)
-		return (1);
-	else
-		return (0);
-}
-
-static void	set_ang(t_player *player, int dir)
-{
-	if (dir == 'S')
-		player->rot_ang = HALF_PI;
-	else if (dir == 'N')
-		player->rot_ang = ONEFIVE_PI;
-	else if (dir == 'E')
-		player->rot_ang = TWO_PI;
-	else if (dir == 'W') 
-		player->rot_ang = PI;
-	else
-		error(".cub WRONG LETTER");
-}
-
-int	setup_player_pos(t_player *player, int map[MAP_H][MAP_W])
-{
-	int	bl_h;
-	int	bl_w;
-
-	bl_w = 0;
-	while (bl_w < MAP_W)
-	{
-		bl_h = 0;
-		while (bl_h < MAP_H)
-		{
-			if (map[bl_h][bl_w] == 'S' || map[bl_h][bl_w] == 'N'
-				|| map[bl_h][bl_w] == 'E' || map[bl_h][bl_w] == 'W')
-			{
-				player->x = bl_w * BLOCKSIZE;
-				player->y = bl_h * BLOCKSIZE;
-				set_ang(player, map[bl_h][bl_w]); 
-				map[bl_h][bl_w] = FLOOR;
-				return (0);
-			}
-			bl_h++;
-		}
-		bl_w++; 
-	}
-	printf("User not found\n");
-	return (1);
-}

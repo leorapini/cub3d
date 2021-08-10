@@ -21,6 +21,14 @@ int	goodbye(t_game *game)
 	return (0);
 }
 
+/* Receives a message, prints it, and exists with error */
+void	error(char *message)
+{
+	printf("Error\n");
+	printf(">> %s <<\n", message);
+	exit(1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_config	config;
