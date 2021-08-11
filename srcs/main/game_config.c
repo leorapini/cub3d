@@ -13,24 +13,51 @@
 #include "game.h"
 #include "mlx.h"
 
-void	game_config(t_config config, t_player player, t_ray ray, t_mlx *mlx, t_game *game, t_data *img)
+/* Receives game and sets mlx settings and loads textures */
+void	game_mlx_settings(t_game *game)
 {
-	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, config.win_w, config.win_h, "Cub3d");
-	img->img = mlx_new_image(mlx->mlx, config.win_w, config.win_h);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
-			&img->line_length, &img->endian);
-	img->size_w = BLOCKSIZE * MAP_W;
-	img->size_h = BLOCKSIZE * MAP_H;
-	img->color = config.floor_color;
-	game->mlx = *mlx;
-	game->config = config;
-	game->player = player;
-	game->ray = ray;
-	game->img = *img;
-	load_texture(&game->texture, game->config.no_texture, game);
+	game->mlx.mlx = mlx_init();
+	game->mlx.win = mlx_new_window(game->mlx.mlx, game->config.win_w, game->config.win_h, "Cub3d | lpinheir");
+	game->img.img = mlx_new_image(game->mlx.mlx, game->config.win_w, game->config.win_h);
+	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel,
+			&game->img.line_length, &game->img.endian);
+	game->img.size_w = game->config.win_w;
+	game->img.size_h = game->config.win_h;
 	load_texture(&game->no_texture, game->config.no_texture, game);
 	load_texture(&game->we_texture, game->config.we_texture, game);
 	load_texture(&game->ea_texture, game->config.ea_texture, game);
 	load_texture(&game->so_texture, game->config.so_texture, game);
+}
+
+/* Receives config and checks if values are equal to initialized 
+values and calls error function if true. Meaning they weren't 
+properly set up. */
+void	check_config(t_config config)
+{
+	if (config.no_texture == NULL)
+		error("Missing North Texture");
+	else if (config.so_texture == NULL)
+		error("Missing South Texture");
+	else if (config.we_texture == NULL)
+		error("Missing West Texture");
+	else if (config.ea_texture == NULL)
+		error("Missing East Texture");
+	else if (config.floor_color == 0)
+		error("Missing Floor Color");
+	else if (config.ceiling_color == 0)
+		error("Missing Ceiling Color");
+}
+
+/* Receives config address and frees memory appointed to each 
+of the config items */
+void	free_config(t_config *config)
+{
+	if (config->no_texture != NULL)
+		free(config->no_texture);
+	if (config->so_texture != NULL)
+		free(config->so_texture);
+	if (config->we_texture != NULL)
+		free(config->we_texture);
+	if (config->ea_texture != NULL)
+		free(config->ea_texture);
 }

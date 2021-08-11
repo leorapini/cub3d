@@ -12,6 +12,14 @@
 
 #include "game.h"
 
+/* Receives game and initializes config, player and ray */
+void	init_game(t_game *game)
+{
+	init_config(&game->config);
+	init_player(&game->player);
+	init_ray(&game->ray);
+}
+
 /* Receives config address and initializes it with starting values*/
 void	init_config(t_config *config)
 {
@@ -25,6 +33,7 @@ void	init_config(t_config *config)
 	config->ceiling_color = 0;
 }
 
+/* Receives player address and initializes it with starting values*/
 void	init_player(t_player *player)
 {
 	player->x = 0;
@@ -34,6 +43,7 @@ void	init_player(t_player *player)
 	player->rot_ang = 0;
 }
 
+/* Receives ray address and initializes it with starting values*/
 void	init_ray(t_ray *ray)
 {
 	ray->hit_x = 0;
@@ -47,45 +57,4 @@ void	init_ray(t_ray *ray)
 	ray->found_hor_hit = 0;
 	ray->found_ver_hit = 0;
 	ray->was_hit_ver = 0;
-}
-
-void	init_texture(t_texture *texture)
-{
-	texture->width = 32;
-	texture->height = 32;
-	texture->offset_x = 0;
-	texture->offset_y = 0;
-}
-
-/* Receives config and checks if values are equal to initialized 
-values and calls error function if true. Meaning they weren't 
-properly set up. */
-void	check_config(t_config config)
-{
-	if (config.no_texture == NULL)
-		error("Missing North Texture");
-	else if (config.so_texture == NULL)
-		error("Missing South Texture");
-	else if (config.we_texture == NULL)
-		error("Missing West Texture");
-	else if (config.ea_texture == NULL)
-		error("Missing East Texture");
-	else if (config.floor_color == 0)
-		error("Missing Floor Color");
-	else if (config.ceiling_color == 0)
-		error("Missing Ceiling Color");
-}
-
-/* Receives config address and frees memory appointed to each 
-of the config items */
-void	free_config(t_config *config)
-{
-	if (config->no_texture != NULL)
-		free(config->no_texture);
-	if (config->so_texture != NULL)
-		free(config->so_texture);
-	if (config->we_texture != NULL)
-		free(config->we_texture);
-	if (config->ea_texture != NULL)
-		free(config->ea_texture);
 }

@@ -44,7 +44,7 @@ void	update_map(t_game *game, int key)
 		angle = 0;
 	new_x = new_x + (int) (cos(game->player.rot_ang + angle) * step);
 	new_y = new_y + (int) (sin(game->player.rot_ang + angle) * step); 
-	if (where_it_lands(game->config, new_x, new_y))
+	if (is_not_a_wall(game->config, new_x, new_y))
 	{
 		game->player.x = new_x;
 		game->player.y = new_y;

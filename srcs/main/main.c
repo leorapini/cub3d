@@ -13,6 +13,7 @@
 #include "game.h"
 #include "mlx.h"
 
+/* Exits game wihout error with a Goodbye message */
 int	goodbye(t_game *game)
 {
 	printf("Goodbye!\n");
@@ -31,32 +32,23 @@ void	error(char *message)
 
 int	main(int argc, char **argv)
 {
-	t_config	config;
-	t_mlx		mlx;
-	t_data		img;
 	t_game		game;
-	t_player	player;
-	t_ray		ray;
 
-	init_config(&config);
-	init_player(&player);
-	init_ray(&ray);
+	init_game(&game);
 	if (argc < 2)
-		parse_cub("./maps/1.cub", &config);
+		parse_cub("./maps/1.cub", &game.config);
 	else if (argc == 2)
-		parse_cub(argv[1], &config);
-	else if (argc == 3)
-		error("Not implemented");
+		parse_cub(argv[1], &game.config);
 	else
 		error("Too many arguments");
-	check_config(config);
-	check_map(config.map);
-	setup_player_pos(&player, config.map);
-	game_config(config, player, ray, &mlx, &game, &img);
+	check_config(game.config);
+	check_map(game.config.map);
+	game_mlx_settings(&game);
+	setup_player_pos(&game.player, game.config.map);
 	update_camera(&game);
 	mlx_loop_hook(game.mlx.mlx, update_camera, &game);
-	mlx_hook(game.mlx.win, KEY_PRESS, KEY_PRESS_MASK, key_control, &game);
-	mlx_hook(game.mlx.win, CLIENT_MESSAGE, CLNT_MSG_MASK, goodbye, &game);
+	mlx_hook(game.mlx.win, KEY_PRESS, 1L << 0, key_control, &game);
+	mlx_hook(game.mlx.win, CLIENT_MESSAGE, 1L << 17, goodbye, &game);
 	mlx_loop(game.mlx.mlx);
 	return (0);
 }

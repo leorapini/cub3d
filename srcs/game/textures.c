@@ -57,12 +57,9 @@ void	load_texture(t_texture *cur_texture, char *path, t_game *game)
 }
 
 /* Called in draw_3d */
-int	texture_color(t_texture *cur_texture, int wall_top_pix, int wall_height, int y)
+int	texture_color(t_texture *texture, int top_pix, int wall_height, int y)
 {
-	t_texture	*texture;
-
-	texture = cur_texture;
-	texture->offset_y = (y - wall_top_pix) * 
+	texture->offset_y = (y - top_pix) * 
 			((float) texture->height / wall_height);
 	return (*(unsigned int *)(texture->img.addr + (texture->offset_y *
 			texture->img.line_length + texture->offset_x *

@@ -12,7 +12,9 @@
 
 #include "game.h"
 
-int	where_it_lands(t_config config, int new_x, int new_y)
+/* Receives config, new x position and new y position and checks if 
+it is located in the correct place in the board (FLOOR and not a WALL) */
+int	is_not_a_wall(t_config config, int new_x, int new_y)
 {
 	int	bl_h;
 	int	bl_w;
@@ -25,6 +27,8 @@ int	where_it_lands(t_config config, int new_x, int new_y)
 		return (0);
 }
 
+/* Receives player and direction (letter in int format) and sets player 
+rotation angle accordingly */
 static void	set_ang(t_player *player, int dir)
 {
 	if (dir == 'S')
@@ -33,12 +37,13 @@ static void	set_ang(t_player *player, int dir)
 		player->rot_ang = ONEFIVE_PI;
 	else if (dir == 'E')
 		player->rot_ang = TWO_PI;
-	else if (dir == 'W') 
+	else if (dir == 'W')
 		player->rot_ang = PI;
 	else
-		error(".cub WRONG LETTER");
+		error(".cub WRONG LETTER in map position ");
 }
 
+/* Receives player and map and sets player x and y positions */
 int	setup_player_pos(t_player *player, int map[MAP_H][MAP_W])
 {
 	int	bl_h;
@@ -55,13 +60,13 @@ int	setup_player_pos(t_player *player, int map[MAP_H][MAP_W])
 			{
 				player->x = bl_w * BLOCKSIZE;
 				player->y = bl_h * BLOCKSIZE;
-				set_ang(player, map[bl_h][bl_w]); 
+				set_ang(player, map[bl_h][bl_w]);
 				map[bl_h][bl_w] = FLOOR;
 				return (0);
 			}
 			bl_h++;
 		}
-		bl_w++; 
+		bl_w++;
 	}
 	printf("User not found\n");
 	return (1);

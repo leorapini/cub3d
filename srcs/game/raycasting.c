@@ -170,7 +170,7 @@ int	ver_wall_hit(t_game *game)
 			temp_x = hit_x - 1;
 		else
 			temp_x = hit_x;
-		if (!(where_it_lands(game->config, temp_x, hit_y)))
+		if (!(is_not_a_wall(game->config, temp_x, hit_y)))
 		{
 			game->ray.ver_hit_x = hit_x;
 			game->ray.ver_hit_y = hit_y;
@@ -266,7 +266,7 @@ int	hor_wall_hit(t_game *game)
 			//printf("FACE DOWN\n");
 			temp_y = hit_y;
 		}
-		if (!(where_it_lands(game->config, hit_x, temp_y)))
+		if (!(is_not_a_wall(game->config, hit_x, temp_y)))
 		{
 			game->ray.hor_hit_x = hit_x;
 			game->ray.hor_hit_y = hit_y;
