@@ -44,7 +44,7 @@ int		check_file_exists(char const *file);
 
 /* PARSE MAP */
 int		parse_map(char *line, t_config *config);
-int		check_map(int map[MAP_W][MAP_H]);
+void	check_map(int map[MAP_W][MAP_H]);
 
 /* GAME_CONFIG */
 void	game_mlx_settings(t_game *game);

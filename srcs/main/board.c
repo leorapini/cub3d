@@ -68,6 +68,6 @@ int	setup_player_pos(t_player *player, int map[MAP_H][MAP_W])
 		}
 		bl_w++;
 	}
-	printf("User not found\n");
+	error("User not found on map");
 	return (1);
 }

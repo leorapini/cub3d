@@ -17,8 +17,16 @@
 void	game_mlx_settings(t_game *game)
 {
 	game->mlx.mlx = mlx_init();
-	game->mlx.win = mlx_new_window(game->mlx.mlx, game->config.win_w, game->config.win_h, "Cub3d | lpinheir");
-	game->img.img = mlx_new_image(game->mlx.mlx, game->config.win_w, game->config.win_h);
+	if (!(game->mlx.mlx))
+		error("Error in mlx_init");
+	game->mlx.win = mlx_new_window(game->mlx.mlx, game->config.win_w,
+			game->config.win_h, "Cub3d | lpinheir");
+	if (!(game->mlx.win))
+		error("Error in mlx_new_window");
+	game->img.img = mlx_new_image(game->mlx.mlx, game->config.win_w,
+			game->config.win_h);
+	if (!(game->img.img))
+		error("Error in mlx_new_image");
 	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel,
 			&game->img.line_length, &game->img.endian);
 	game->img.size_w = game->config.win_w;

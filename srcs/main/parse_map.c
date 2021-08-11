@@ -6,13 +6,15 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 17:49:54 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/09 11:51:26 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/11 11:04:07 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 #include "mlx.h"
 
+/* Receives a line and config and iterates over each character assigning
+the corresponding value to the map structure */
 int	parse_map(char *line, t_config *config)
 {
 	int			x;
@@ -39,19 +41,32 @@ int	parse_map(char *line, t_config *config)
 	return (0);
 }
 
-int	check_map(int map[MAP_W][MAP_H])
+/* Receives x, y and map structure and iterates over it looking for possible
+misconfigurations at the last row*/
+static void	check_map_bottom(int x, int y, int map[MAP_W][MAP_H])
 {
-	int 	x;
-	int	y;
-	int	first_floor;
-	int	last_floor;
-	int	first_row;
-	int	last_row;
+	while (map[y][x] != END_TABLE)
+	{
+		while (map[y][x] != END_LINE)
+		{
+			if (map[y][x] == FLOOR)
+				error(".cub MAP ERROR - 0 is last row");
+			if (map[y][x] == EMPTY && map[y - 1][x] == FLOOR)
+				error(".cub MAP ERROR - space with with 0 above");
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+}
 
-	first_floor = 0;
-	last_floor = 0;
-	first_row = 1;
-	last_row = 1;
+/* Receives map structure and iterates over it looking for possible
+misconfigurations */
+void	check_map(int map[MAP_W][MAP_H])
+{
+	int	x;
+	int	y;
+
 	y = 0;
 	x = 0;
 	while (map[y][x] != END_TABLE)
@@ -70,22 +85,8 @@ int	check_map(int map[MAP_W][MAP_H])
 			x++;
 		}
 		x = 0;
-		y++;		
+		y++;
 	}
 	y--;
-	x = 0;
-	while (map[y][x] != END_TABLE)
-	{
-		while(map[y][x] != END_LINE)
-		{
-			if (map[y][x] == FLOOR)
-				error(".cub MAP ERROR - 0 is last row");
-			if (map[y][x] == EMPTY && map[y - 1][x] == FLOOR)
-				error(".cub MAP ERROR - 0 with with space above");
-			x++;
-		}
-		x = 0;
-		y++;	
-	}	
-	return (0);
+	check_map_bottom(0, y, map);
 }
