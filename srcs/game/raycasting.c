@@ -46,6 +46,7 @@ void	cast_rays(t_game *game)
 		game->ray.angle = norm_angle(game->ray.angle);
 		game->ray.found_hor_hit = 0;
 		hor_wall_hit(game);
+		game->ray.found_ver_hit = 0;
 		ver_wall_hit(game);
 		game->ray.was_hit_ver = 0;
 		which_wall_hit(game);

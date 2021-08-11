@@ -66,10 +66,14 @@ int		update_camera(t_game *game);
 
 /* RAYCASTING */
 void	cast_rays(t_game *game);
-int		wall_hit(t_game *game);
-int		hor_wall_hit(t_game *game);
-int		ver_wall_hit(t_game *game);
+void	which_wall_hit(t_game *game);
 double	norm_angle(double angle);
+
+/* HOR RAY HITS */
+void	hor_wall_hit(t_game *game);
+
+/* VER RAY HITS */
+void	ver_wall_hit(t_game *game);
 
 /* TEXTURES */
 void	load_texture(t_texture *texture, char *path, t_game *game);
