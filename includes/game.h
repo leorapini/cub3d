@@ -52,7 +52,7 @@ void	check_config(t_config config);
 void	free_config(t_config *config);
 
 /* CONTROL */
-void	update_map(t_game *game, int key);
+void	update_direction(t_game *game, int key);
 int		key_control(int key, t_game *game);
 
 /* BOARD */
@@ -72,8 +72,8 @@ int		ver_wall_hit(t_game *game);
 double	norm_angle(double angle);
 
 /* TEXTURES */
-void	load_texture(t_texture *cur_texture, char *path, t_game *game);
-void	texture_offset_x(t_texture *cur_texture, t_game *game);
+void	load_texture(t_texture *texture, char *path, t_game *game);
+void	texture_offset_x(t_texture *texture, t_game *game);
 int		texture_color(t_texture *texture, int top_pix, int wall_height, int y);
 
 #endif
