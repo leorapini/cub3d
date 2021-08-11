@@ -27,10 +27,6 @@ void	game_mlx_settings(t_game *game)
 			game->config.win_h);
 	if (!(game->img.img))
 		error("Error in mlx_new_image");
-	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel,
-			&game->img.line_length, &game->img.endian);
-	game->img.size_w = game->config.win_w;
-	game->img.size_h = game->config.win_h;
 	load_texture(&game->no_texture, game->config.no_texture, game);
 	load_texture(&game->we_texture, game->config.we_texture, game);
 	load_texture(&game->ea_texture, game->config.ea_texture, game);

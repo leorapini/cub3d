@@ -45,9 +45,10 @@ void	cast_rays(t_game *game)
 	game->ray.angle = game->player.rot_ang - (FOV / 2);
 	while (col < game->config.win_w)
 	{
+		game->column = col;
 		game->ray.angle = norm_angle(game->ray.angle);
 		wall_hit(game);
-		draw_3d(game, col);
+		draw_3d(game);
 		game->ray.angle = game->ray.angle + FOV / num_rays;
 		col++;
 	}

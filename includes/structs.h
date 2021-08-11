@@ -90,6 +90,7 @@ typedef struct s_game
 	t_data		img;
 	t_player	player;
 	t_ray		ray;
+	float		column;
 	t_texture	no_texture;
 	t_texture	so_texture;
 	t_texture	we_texture;

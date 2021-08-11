@@ -61,7 +61,7 @@ int		is_not_a_wall(t_config config, int new_x, int new_y);
 
 /* DRAW  */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	draw_3d(t_game *game, float col);
+void	draw_3d(t_game *game);
 int		update_camera(t_game *game);
 
 /* RAYCASTING */
