@@ -12,6 +12,8 @@
 
 #include "game.h"
 
+/* Receives angle and calculates y_step value based on the angle (pointing
+up or down) and if y_step is positive or negative*/
 static float	ver_y_step(double r_ang)
 {
 	float	y_step;
@@ -28,26 +30,31 @@ static float	ver_y_step(double r_ang)
 	return (y_step);
 }
 
+/* Receives angle and calculates x_step value based on the angle (pointing
+left or right) */
 static float	ver_x_step(double r_ang)
 {
 	float	x_step;
 
 	x_step = BLOCKSIZE;
-	if (!(r_ang < 0.5 * PI || r_ang > 1.5 * PI))
+	if (!(r_ang < HALF_PI || r_ang > ONEFIVE_PI))
 		x_step = x_step * -1;
 	else
 		x_step = x_step * 1;
 	return (x_step);
 }
 
+/* Receives angle and hit_x and returns a x value based on the angle (if
+it is poiting left or right)*/
 static float	x(double r_ang, float hit_x)
 {
-	if (!(r_ang < 0.5 * PI || r_ang > 1.5 * PI))
+	if (!(r_ang < HALF_PI || r_ang > ONEFIVE_PI))
 		return (hit_x - 1);
 	else
 		return (hit_x);
 }
 
+/* Receives game, hit_x and hit_y and sets the according values to game->ray */
 static void	ver_set_hit(t_game *game, float hit_x, float hit_y)
 {
 	game->ray.ver_hit_x = hit_x;
@@ -56,6 +63,10 @@ static void	ver_set_hit(t_game *game, float hit_x, float hit_y)
 	game->ray.was_hit_ver = 1;
 }
 
+/* Receives game and finds the first hits based on the player positions and
+angle. It then uses y_step and x_step to keep increasing ray length until 
+a wall is found. Note that a "temporary" x is used to check if a wall is
+hit: x(angle, current_hit_x) */
 void	ver_wall_hit(t_game *game)
 {
 	float	hit_y;

@@ -6,12 +6,14 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 18:02:07 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/10 14:01:22 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/12 08:55:07 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 
+/* Receives hit x, hit y and players position x and y and calculates hit
+distance */
 static float	hit_distance(float h_x, float h_y, float p_x, float p_y)
 {
 	float	distance;
@@ -20,16 +22,22 @@ static float	hit_distance(float h_x, float h_y, float p_x, float p_y)
 	return (distance);
 }
 
+/* Receives angle and normalizes it */
 double	norm_angle(double angle)
 {
 	double	l_angle;
 
-	l_angle = remainder(angle, (2 * PI));
+	l_angle = remainder(angle, TWO_PI);
 	if (l_angle < 0)
-		l_angle = (2 * PI) + l_angle;
+		l_angle = TWO_PI + l_angle;
 	return (l_angle);
 }
 
+/* Receives game and iterates over each column casting rays checking for
+horizontal hits and vertical hits by calling each respective function. 
+Which wall hit is called to check which hit has a shorter distance, then
+it calls draw_3d to actually draw each wall based on the current column
+and the shorter hit */
 void	cast_rays(t_game *game)
 {
 	float	col;
@@ -39,7 +47,7 @@ void	cast_rays(t_game *game)
 	strip_width = 1;
 	num_rays = game->config.win_w / strip_width;
 	col = 0;
-	game->ray.angle = game->player.rot_ang - (FOV / 2);
+	game->ray.angle = game->player.rot_ang - HALF_FOV;
 	while (col < game->config.win_w)
 	{
 		game->column = col;
@@ -56,6 +64,8 @@ void	cast_rays(t_game *game)
 	}
 }
 
+/* Receives game and checks if ver and hor hits were found then decides
+which one to use based on the shorter distance */
 void	which_wall_hit(t_game *game)
 {	
 	if (game->ray.found_hor_hit)
