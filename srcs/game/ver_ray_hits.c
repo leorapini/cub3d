@@ -59,6 +59,12 @@ static void	ver_set_hit(t_game *game, float hit_x, float hit_y)
 {
 	game->ray.ver_hit_x = hit_x;
 	game->ray.ver_hit_y = hit_y;
+	if (game->ray.ver_hit_x == game->player.x && game->ray.ver_hit_y
+		== game->player.y)
+	{
+		game->ray.ver_hit_x += 2;
+		game->ray.ver_hit_y += 2;
+	}
 	game->ray.found_ver_hit = 1;
 	game->ray.was_hit_ver = 1;
 }

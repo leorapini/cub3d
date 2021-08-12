@@ -59,6 +59,12 @@ static void	hor_set_hit(t_game *game, float hit_x, float hit_y)
 {
 	game->ray.hor_hit_x = hit_x;
 	game->ray.hor_hit_y = hit_y;
+	if (game->ray.hor_hit_x == game->player.x && game->ray.hor_hit_y
+		== game->player.y)
+	{
+		game->ray.hor_hit_x += 2;
+		game->ray.hor_hit_y += 2;
+	}
 	game->ray.found_hor_hit = 1;
 }
 

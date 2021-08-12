@@ -27,7 +27,6 @@ int	is_not_a_wall(t_config config, float new_x, float new_y)
 		return (0);
 }
 
-
 int	is_a_wall(t_config config, float new_x, float new_y)
 {
 	int	bl_h;
@@ -72,8 +71,8 @@ int	setup_player_pos(t_player *player, int map[MAP_H][MAP_W])
 			if (map[bl_h][bl_w] == 'S' || map[bl_h][bl_w] == 'N'
 				|| map[bl_h][bl_w] == 'E' || map[bl_h][bl_w] == 'W')
 			{
-				player->x = bl_w * BLOCKSIZE;
-				player->y = bl_h * BLOCKSIZE;
+				player->x = (bl_w * BLOCKSIZE) + (BLOCKSIZE / 2);
+				player->y = (bl_h * BLOCKSIZE) + (BLOCKSIZE / 2);
 				set_ang(player, map[bl_h][bl_w]);
 				map[bl_h][bl_w] = FLOOR;
 				return (0);

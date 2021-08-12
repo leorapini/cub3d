@@ -47,10 +47,10 @@ typedef struct s_ray
 	float		hit_y;
 	float		hit_dist;
 	double		angle;
-	float			hor_hit_y;
-	float			hor_hit_x;
-	float			ver_hit_y;
-	float			ver_hit_x;
+	float		hor_hit_y;
+	float		hor_hit_x;
+	float		ver_hit_y;
+	float		ver_hit_x;
 	int			found_hor_hit;
 	int			found_ver_hit;
 	double		hor_hit_dist;

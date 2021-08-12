@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 18:02:07 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/12 13:59:37 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/12 14:48:46 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,8 @@ which one to use based on the shorter distance */
 void	which_wall_hit(t_game *game)
 {	
 	if (game->ray.found_hor_hit)
-	{
 		game->ray.hor_hit_dist = hit_distance(game->ray.hor_hit_x,
 				game->ray.hor_hit_y, game->player.x, game->player.y);
-	}
 	else
 		game->ray.hor_hit_dist = (double) INT_MAX;
 	if (game->ray.found_ver_hit)
