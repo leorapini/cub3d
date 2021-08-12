@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:19:20 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/10 13:12:25 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/12 09:55:42 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(int argc, char **argv)
 	setup_player_pos(&game.player, game.config.map);
 	game_mlx_settings(&game);
 	update_camera(&game);
-	mlx_loop_hook(game.mlx.mlx, update_camera, &game);
+	//mlx_loop_hook(game.mlx.mlx, update_camera, &game);
 	mlx_hook(game.mlx.win, KEY_PRESS, 1L << 0, key_control, &game);
 	mlx_hook(game.mlx.win, CLIENT_MESSAGE, 1L << 17, goodbye, &game);
 	mlx_loop(game.mlx.mlx);

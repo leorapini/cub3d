@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 13:40:27 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/09 17:33:37 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/12 14:25:08 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ static void	update_position(t_game *game, float angle, int step)
 	{
 		game->player.x = new_x;
 		game->player.y = new_y;
+		if (game->player.x == BLOCKSIZE)
+			game->player.x += 2;
+		if (game->player.y == BLOCKSIZE)
+			game->player.y += 2;
 	}
 	game->player.turn_dir = 0;
 	game->player.walk_dir = 0;

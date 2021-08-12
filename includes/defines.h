@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 08:44:19 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/11 08:44:47 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/12 13:54:36 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@
 # define	ONEFIVE_PI 4.71238898
 # define	MOV_SPEED 3.0
 # define	ROT_SPEED 0.0523599
+# define	DIST_PROJ 692.819963
 
 #endif

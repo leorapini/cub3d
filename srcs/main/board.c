@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 14:41:59 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/10 14:42:25 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/12 11:39:27 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,28 @@
 
 /* Receives config, new x position and new y position and checks if 
 it is located in the correct place in the board (FLOOR and not a WALL) */
-int	is_not_a_wall(t_config config, int new_x, int new_y)
+int	is_not_a_wall(t_config config, float new_x, float new_y)
 {
 	int	bl_h;
 	int	bl_w;
 
-	bl_h = new_y / BLOCKSIZE;
-	bl_w = new_x / BLOCKSIZE;
+	bl_h = (int)floor(new_y / BLOCKSIZE);
+	bl_w = (int)floor(new_x / BLOCKSIZE);
 	if (config.map[bl_h][bl_w] == FLOOR)
+		return (1);
+	else
+		return (0);
+}
+
+
+int	is_a_wall(t_config config, float new_x, float new_y)
+{
+	int	bl_h;
+	int	bl_w;
+
+	bl_h = (int)floor(new_y / BLOCKSIZE);
+	bl_w = (int)floor(new_x / BLOCKSIZE);
+	if (config.map[bl_h][bl_w] == WALL)
 		return (1);
 	else
 		return (0);

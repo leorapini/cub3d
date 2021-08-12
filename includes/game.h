@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:19:17 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/10 15:00:41 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/12 11:31:42 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int		key_control(int key, t_game *game);
 
 /* BOARD */
 int		setup_player_pos(t_player *player, int map[MAP_H][MAP_W]);
-int		is_not_a_wall(t_config config, int new_x, int new_y);
+int		is_not_a_wall(t_config config, float new_x, float new_y);
+int		is_a_wall(t_config config, float new_x, float new_y);
 
 /* DRAW  */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);

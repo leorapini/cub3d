@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 18:21:29 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/12 09:03:07 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/12 11:32:57 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	hor_wall_hit(t_game *game)
 	while ((hit_x >= 0 && hit_x < game->config.win_w) && (hit_y >= 0
 			&& hit_y < game->config.win_h))
 	{
-		if (!(is_not_a_wall(game->config, hit_x, y(game->ray.angle, hit_y))))
+		if (is_a_wall(game->config, hit_x, y(game->ray.angle, hit_y)))
 		{
 			hor_set_hit(game, hit_x, hit_y);
 			break ;

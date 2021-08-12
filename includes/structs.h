@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 08:48:58 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/11 08:49:51 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/12 10:57:59 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,10 @@ typedef struct s_ray
 	float		hit_y;
 	float		hit_dist;
 	double		angle;
-	int			hor_hit_y;
-	int			hor_hit_x;
-	int			hor_hit_cont;
-	int			ver_hit_y;
-	int			ver_hit_x;
-	int			ver_hit_cont;
+	float			hor_hit_y;
+	float			hor_hit_x;
+	float			ver_hit_y;
+	float			ver_hit_x;
 	int			found_hor_hit;
 	int			found_ver_hit;
 	double		hor_hit_dist;

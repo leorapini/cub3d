@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 14:19:20 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/10 14:34:27 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/12 13:57:07 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ static void	put_pixels(t_game *game, int wall_height, int top_pix,
 in the current column. Calls put_pixels once information is calculated */
 void	draw_3d(t_game *game)
 {
-	float		dist_proj_plane;
 	float		perp_dist;
 	int			wall_height;
 	int			wall_top_pix;
@@ -103,8 +102,7 @@ void	draw_3d(t_game *game)
 
 	perp_dist = game->ray.hit_dist
 		* cos(game->ray.angle - game->player.rot_ang);
-	dist_proj_plane = (game->config.win_w / 2) / tan(FOV / 2);
-	wall_height = (int)((BLOCKSIZE / perp_dist) * dist_proj_plane);
+	wall_height = (int)((BLOCKSIZE / perp_dist) * DIST_PROJ);
 	wall_top_pix = (game->config.win_h / 2) - (wall_height / 2);
 	if (wall_top_pix < 0)
 		wall_top_pix = 0;

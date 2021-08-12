@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:23:58 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/08/10 14:13:23 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/12 14:24:18 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ in draw_3d) */
 void	texture_offset_x(t_texture *texture, t_game *game)
 {
 	if (game->ray.was_hit_ver)
-		texture->offset_x = (int) game->ray.hit_y % texture->width;
+		texture->offset_x = (int) game->ray.hit_y % texture->height;
 	else
 		texture->offset_x = (int) game->ray.hit_x % texture->width;
 }
@@ -45,7 +45,12 @@ returns color value according to correct offset values x and y. (Function is
 called in draw_3d) */
 int	texture_color(t_texture *texture, int top_pix, int wall_height, int y)
 {
-	texture->offset_y = (y - top_pix) * ((float) texture->height / wall_height);
+	int	distance_from_top;
+
+	top_pix = 0;
+	distance_from_top = y + (wall_height / 2) - (WIN_H / 2);
+	texture->offset_y = distance_from_top
+		* ((float) texture->height / wall_height);
 	return (*(unsigned int *)(texture->img.addr
 		+ (texture->offset_y * texture->img.line_length
 			+ texture->offset_x * (texture->img.bits_per_pixel / 8))));
