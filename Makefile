@@ -29,15 +29,20 @@ RM_FLAGS = -f
 
 S_DIR = srcs
 O_DIR = objs
-SUBDIRS = main game
+MAIN = main
+GAME = game
 
-S_DIRS = $(foreach dir, $(SUBDIRS), $(addprefix $(S_DIR)/, $(dir)))
-O_DIRS = $(foreach dir, $(SUBDIRS), $(addprefix $(O_DIR)/, $(dir)))
-SRCS = $(foreach dir, $(S_DIRS), $(wildcard $(dir)/*.c))
+SRCS = $(S_DIR)/$(MAIN)/board.c $(S_DIR)/$(MAIN)/game_config.c 			\
+		$(S_DIR)/$(MAIN)/inits.c $(S_DIR)/$(MAIN)/main.c 				\
+		$(S_DIR)/$(MAIN)/parse_map.c $(S_DIR)/$(MAIN)/parser.c 			\
+		$(S_DIR)/$(MAIN)/parser_utils.c 								\
+		$(S_DIR)/$(GAME)/control.c $(S_DIR)/$(GAME)/draw.c 				\
+		$(S_DIR)/$(GAME)/hor_ray_hits.c $(S_DIR)/$(GAME)/raycasting.c 	\
+		$(S_DIR)/$(GAME)/textures.c $(S_DIR)/$(GAME)/ver_ray_hits.c 	\
+
 OBJS = $(subst $(S_DIR), $(O_DIR), $(SRCS:.c=.o))
 
 $(O_DIR)/%.o:	$(S_DIR)/%.c
-	@mkdir -p $(O_DIR) $(O_DIRS)
 	@$(CC) $(CC_FLAGS) $(INCLUDES) -c $< -o $@
 
 all:	$(NAME)	
@@ -51,7 +56,6 @@ $(NAME):	$(OBJS) $(LIBFT)
 clean:
 	@make clean -C $(LIBFT_DIR)
 	@rm $(RM_FLAGS) $(OBJS)
-	@rm -r $(O_DIRS)
 
 fclean:	clean
 	@make fclean -C $(LIBFT_DIR)

@@ -36,11 +36,11 @@ int	main(int argc, char **argv)
 
 	init_game(&game);
 	if (argc < 2)
-		parse_cub("./maps/1.cub", &game.config);
+		error("Usage: ./cub3d ./maps/1.cub");
 	else if (argc == 2)
 		parse_cub(argv[1], &game.config);
 	else
-		error("Too many arguments");
+		error("Too many arguments. Usage: ./cub3d ./maps/1.cub");
 	check_config(game.config);
 	check_map(game.config.map);
 	setup_player_pos(&game.player, game.config.map);
