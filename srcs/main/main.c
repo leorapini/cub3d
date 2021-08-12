@@ -30,6 +30,13 @@ void	error(char *message)
 	exit(1);
 }
 
+/* Checks file name and extension */
+static void	check_cub(char *file_name)
+{
+	if (!(ft_strnstr(file_name, ".cub", ft_strlen(file_name))))
+		error("Wrong file extension");
+}
+
 int	main(int argc, char **argv)
 {
 	t_game		game;
@@ -38,7 +45,10 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 		error("Usage: ./cub3d ./maps/1.cub");
 	else if (argc == 2)
+	{
+		check_cub(argv[1]);
 		parse_cub(argv[1], &game.config);
+	}
 	else
 		error("Too many arguments. Usage: ./cub3d ./maps/1.cub");
 	check_config(game.config);
