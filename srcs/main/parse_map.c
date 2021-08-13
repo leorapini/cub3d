@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "game.h"
-#include "mlx.h"
 
 /* Receives a line and config and iterates over each character assigning
 the corresponding value to the map structure */

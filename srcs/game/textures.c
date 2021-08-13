@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "game.h"
-#include "mlx.h"
 
 /* Receives texture and game and sets x offset value (Function is called 
 in draw_3d) */

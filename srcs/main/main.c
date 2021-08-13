@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "game.h"
-#include "mlx.h"
 
 /* Exits game wihout error with a Goodbye message */
 int	goodbye(t_game *game)

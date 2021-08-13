@@ -23,6 +23,7 @@
 # include "libft.h"
 # include "defines.h"
 # include "structs.h"
+# include "../minilibx-linux/mlx.h"
 
 /* MAIN */
 int		goodbye(t_game *game);

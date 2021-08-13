@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "game.h"
-#include "mlx.h"
 
 /* Receives data (img), x and y positions and color (int) and puts pixels in
 image before putting image to window */

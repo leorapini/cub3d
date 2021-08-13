@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "game.h"
-#include "mlx.h"
 
 /* Receives game, angle and step values and updates player position on
 the board structure */

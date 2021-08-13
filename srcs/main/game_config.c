@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "game.h"
-#include "mlx.h"
 
 /* Receives game and sets mlx settings and loads textures */
 void	game_mlx_settings(t_game *game)
