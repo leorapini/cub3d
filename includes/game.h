@@ -37,6 +37,7 @@ void	init_game(t_game *game);
 
 /* PARSER */
 int		parse_cub(char const *file, t_config *config);
+int words_counter(char **words);
 
 /* PARSER UTILS */
 void	free_split(char **words_line);

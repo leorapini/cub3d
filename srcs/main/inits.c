@@ -29,8 +29,9 @@ void	init_config(t_config *config)
 	config->so_texture = NULL;
 	config->we_texture = NULL;
 	config->ea_texture = NULL;
-	config->floor_color = 0;
-	config->ceiling_color = 0;
+	config->floor_color = -1;
+	config->ceiling_color = -1;
+	config->map[0][0] = 0;
 }
 
 /* Receives player address and initializes it with starting values*/

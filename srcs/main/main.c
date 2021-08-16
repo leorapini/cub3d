@@ -50,7 +50,6 @@ int	main(int argc, char **argv)
 	}
 	else
 		error("Too many arguments. Usage: ./cub3d ./maps/1.cub");
-	check_config(game.config);
 	check_map(game.config.map);
 	setup_player_pos(&game.player, game.config.map);
 	game_mlx_settings(&game);

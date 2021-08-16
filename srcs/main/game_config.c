@@ -38,17 +38,17 @@ properly set up. */
 void	check_config(t_config config)
 {
 	if (config.no_texture == NULL)
-		error("Missing North Texture");
+		error(".cub file misconfiguration");
 	else if (config.so_texture == NULL)
-		error("Missing South Texture");
+		error(".cub file misconfiguration");
 	else if (config.we_texture == NULL)
-		error("Missing West Texture");
+		error(".cub file misconfiguration");
 	else if (config.ea_texture == NULL)
-		error("Missing East Texture");
-	else if (config.floor_color == 0)
-		error("Missing Floor Color");
-	else if (config.ceiling_color == 0)
-		error("Missing Ceiling Color");
+		error(".cub file misconfiguration");
+	else if (config.floor_color == -1)
+		error(".cub file misconfiguration");
+	else if (config.ceiling_color == -1)
+		error(".cub file misconfiguration");
 }
 
 /* Receives config address and frees memory appointed to each 

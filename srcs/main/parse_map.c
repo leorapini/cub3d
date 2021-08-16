@@ -29,8 +29,10 @@ int	parse_map(char *line, t_config *config)
 			config->map[y][x] = ft_ctoi(line[x]);
 		else if (line[x] == '0')
 			config->map[y][x] = FLOOR;
-		else
+		else if (line[x] == ' ')
 			config->map[y][x] = EMPTY;
+		else
+			error(".cub ERROR");
 		x++;
 	}
 	config->map[y][x] = EMPTY;
@@ -49,9 +51,9 @@ static void	check_map_bottom(int x, int y, int map[MAP_W][MAP_H])
 		while (map[y][x] != END_LINE)
 		{
 			if (map[y][x] == FLOOR)
-				error(".cub MAP ERROR - 0 is last row");
+				error(".cub MAP ERROR");
 			if (map[y][x] == EMPTY && map[y - 1][x] == FLOOR)
-				error(".cub MAP ERROR - space with with 0 above");
+				error(".cub MAP ERROR");
 			x++;
 		}
 		x = 0;
@@ -73,14 +75,14 @@ void	check_map(int map[MAP_W][MAP_H])
 		while (map[y][x] != END_LINE)
 		{
 			if (map[y][x] == FLOOR && y == 0)
-				error(".cub MAP ERROR - 0 in top row");
+				error(".cub MAP ERROR");
 			if (map[y][x] == EMPTY && map[y + 1][x] == FLOOR)
-				error(".cub MAP ERROR - empty space above 0");
+				error(".cub MAP ERROR");
 			if (map[y][x] == FLOOR && x == 0)
-				error(".cub MAP ERROR - 0 not precede by 1");
+				error(".cub MAP ERROR");
 			if ((map[y][x] == FLOOR && map[y][x - 1] == EMPTY)
 				|| (map[y][x] == FLOOR && map[y][x + 1] == EMPTY))
-				error(".cub MAP ERROR - 0 with empty space");
+				error(".cub MAP ERROR");
 			x++;
 		}
 		x = 0;
