@@ -37,12 +37,16 @@ void	init_game(t_game *game);
 
 /* PARSER */
 int		parse_cub(char const *file, t_config *config);
-int words_counter(char **words);
+int		words_counter(char **words);
 
 /* PARSER UTILS */
 void	free_split(char **words_line);
 int		rgb_to_int(char *rgb_color);
 int		check_file_exists(char const *file);
+
+/* PARSE COLORS */
+void	parse_colors(char **words, char *line, int word_count,
+			t_config *config);
 
 /* PARSE MAP */
 int		parse_map(char *line, t_config *config);

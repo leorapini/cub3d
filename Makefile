@@ -35,7 +35,7 @@ GAME = game
 SRCS = $(S_DIR)/$(MAIN)/board.c $(S_DIR)/$(MAIN)/game_config.c 			\
 		$(S_DIR)/$(MAIN)/inits.c $(S_DIR)/$(MAIN)/main.c 				\
 		$(S_DIR)/$(MAIN)/parse_map.c $(S_DIR)/$(MAIN)/parser.c 			\
-		$(S_DIR)/$(MAIN)/parser_utils.c 								\
+		$(S_DIR)/$(MAIN)/parser_utils.c $(S_DIR)/$(MAIN)/parse_colors.c	\
 		$(S_DIR)/$(GAME)/control.c $(S_DIR)/$(GAME)/draw.c 				\
 		$(S_DIR)/$(GAME)/hor_ray_hits.c $(S_DIR)/$(GAME)/raycasting.c 	\
 		$(S_DIR)/$(GAME)/textures.c $(S_DIR)/$(GAME)/ver_ray_hits.c 	\
