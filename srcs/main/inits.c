@@ -32,6 +32,7 @@ void	init_config(t_config *config)
 	config->floor_color = -1;
 	config->ceiling_color = -1;
 	config->map[0][0] = 0;
+	config->map_ended = 0;
 }
 
 /* Receives player address and initializes it with starting values*/

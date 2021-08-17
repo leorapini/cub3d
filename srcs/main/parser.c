@@ -98,8 +98,14 @@ static int	parse_line(char *line, t_config *config)
 
 	if (ft_strlen(line) == 0 && config->map[0][0] == 0)
 		return (0);
-	else if (ft_strlen(line) == 0 && config->map[0][0] != 0)
-		error(".cub Blank line after map");
+	else if ((ft_strlen(line) == 0 && config->map[0][0] != 0)
+			&& config->map_ended == 0)
+	{
+		config->map_ended = 1;
+		return (0);
+	}
+	else if (config->map_ended == 1)
+		return (0);
 	words_line = ft_split(line, ' ');
 	word_count = words_counter(words_line);
 	if ((!(ft_strncmp(words_line[0], "NO", 2))
