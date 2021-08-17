@@ -59,28 +59,29 @@ static void	set_ang(t_player *player, int dir)
 /* Receives player and map and sets player x and y positions */
 int	setup_player_pos(t_player *player, int map[MAP_H][MAP_W])
 {
-	int	bl_h;
-	int	bl_w;
+	int	y;
+	int	x;
 
-	bl_w = 0;
-	while (bl_w < MAP_W)
+	y = 0;
+	x = 0;
+	while (map[y][x] != END_TABLE)
 	{
-		bl_h = 0;
-		while (bl_h < MAP_H)
+		while (map[y][x] != END_LINE)
 		{
-			if (map[bl_h][bl_w] == 'S' || map[bl_h][bl_w] == 'N'
-				|| map[bl_h][bl_w] == 'E' || map[bl_h][bl_w] == 'W')
+			if (map[y][x] == 'S' || map[y][x] == 'N'
+				|| map[y][x] == 'E' || map[y][x] == 'W')
 			{
-				player->x = (bl_w * BLOCKSIZE) + (BLOCKSIZE / 2);
-				player->y = (bl_h * BLOCKSIZE) + (BLOCKSIZE / 2);
-				set_ang(player, map[bl_h][bl_w]);
-				map[bl_h][bl_w] = FLOOR;
+				player->x = (x * BLOCKSIZE) + (BLOCKSIZE / 2);
+				player->y = (y * BLOCKSIZE) + (BLOCKSIZE / 2);
+				set_ang(player, map[y][x]);
+				map[y][x] = FLOOR;
 				return (0);
 			}
-			bl_h++;
+			x++;
 		}
-		bl_w++;
+		x = 0;
+		y++;
 	}
-	error("User not found on map");
+	error(".cub MAP error. Did not find player");
 	return (1);
 }

@@ -30,6 +30,7 @@ typedef struct s_config
 	int		floor_color;
 	int		ceiling_color;
 	int		map[MAP_H][MAP_W];
+	int		found_player_dir;
 	int		map_ended;
 }		t_config;
 

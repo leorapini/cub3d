@@ -49,7 +49,7 @@ void	line_rgb_to_int(int *config_color, char *line);
 int		rgb_to_int(char *rgb_color);
 
 /* PARSE MAP */
-int		parse_map(char *line, t_config *config);
+int		parse_map(char *lin, t_config *config);
 void	check_map(int map[MAP_W][MAP_H]);
 
 /* GAME_CONFIG */

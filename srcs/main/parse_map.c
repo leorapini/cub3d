@@ -12,27 +12,38 @@
 
 #include "game.h"
 
+/* Receives config, y and x positions and letter (c) with player position */
+static void	check_and_set_player_pos(t_config *config, int y, int x, int c)
+{
+	if (config->found_player_dir == 0)
+	{
+		config->map[y][x] = c;
+		config->found_player_dir = 1;
+	}
+	else
+		error(".cub MAP ERROR");
+}
+
 /* Receives a line and config and iterates over each character assigning
 the corresponding value to the map structure */
-int	parse_map(char *line, t_config *config)
+int	parse_map(char *lin, t_config *config)
 {
 	int			x;
 	static int	y = 0;
 
 	x = 0;
-	while (line[x] != 0)
+	while (lin[x] != 0)
 	{
-		if (line[x] == 'S' || line[x] == 'N' || line[x] == 'E'
-			|| line[x] == 'W')
-			config->map[y][x] = line[x];
-		else if (line[x] == '1')
-			config->map[y][x] = ft_ctoi(line[x]);
-		else if (line[x] == '0')
+		if (lin[x] == 'S' || lin[x] == 'N' || lin[x] == 'E' || lin[x] == 'W')
+			check_and_set_player_pos(config, y, x, lin[x]);
+		else if (lin[x] == '1')
+			config->map[y][x] = ft_ctoi(lin[x]);
+		else if (lin[x] == '0')
 			config->map[y][x] = FLOOR;
-		else if (line[x] == ' ')
+		else if (lin[x] == ' ')
 			config->map[y][x] = EMPTY;
 		else
-			error(".cub ERROR");
+			error(".cub MAP ERROR");
 		x++;
 	}
 	config->map[y][x] = EMPTY;

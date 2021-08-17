@@ -33,6 +33,7 @@ void	init_config(t_config *config)
 	config->ceiling_color = -1;
 	config->map[0][0] = 0;
 	config->map_ended = 0;
+	config->found_player_dir = 0;
 }
 
 /* Receives player address and initializes it with starting values*/
