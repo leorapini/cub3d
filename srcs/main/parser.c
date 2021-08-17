@@ -67,7 +67,7 @@ static void	parse_textures(char *name, char *file_location, t_config *config)
 
 /* Parses Colors for Floor and Ceiling (F, C), receives item name, color value
 in string format Ex. 100,100,0 and Config */
-void	parse_colors(char **words, char *line, int word_count,
+static void	parse_colors(char **words, char *line, int word_count,
 	t_config *config)
 {
 	if (!(ft_strncmp(words[0], "F", 1)))
@@ -96,15 +96,7 @@ static int	parse_line(char *line, t_config *config)
 	char	**words_line;
 	int		word_count;
 
-	if (ft_strlen(line) == 0 && config->map[0][0] == 0)
-		return (0);
-	else if ((ft_strlen(line) == 0 && config->map[0][0] != 0)
-			&& config->map_ended == 0)
-	{
-		config->map_ended = 1;
-		return (0);
-	}
-	else if (config->map_ended == 1)
+	if (check_empty_line(line, config))
 		return (0);
 	words_line = ft_split(line, ' ');
 	word_count = words_counter(words_line);

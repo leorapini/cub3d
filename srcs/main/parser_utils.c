@@ -51,3 +51,22 @@ int	check_file_exists(char const *file)
 	close(fd);
 	return (0);
 }
+
+int	check_empty_line(char *line, t_config *config)
+{
+	int	line_len;
+
+	line_len = ft_strlen(line);
+	if (line_len == 0 && config->map[0][0] == 0)
+		return (1);
+	else if ((line_len == 0 && config->map[0][0] != 0)
+			&& config->map_ended == 0)
+	{
+		config->map_ended = 1;
+		return (1);
+	}
+	else if (config->map_ended == 1)
+		return (1);
+	else
+		return (0);
+}
