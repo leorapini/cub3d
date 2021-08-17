@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:37:31 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/05/21 15:32:06 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/17 16:55:53 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ static int	read_buffer(int fd, char **storage, char **line)
 
 int	get_next_line(int fd, char **line)
 {
-	static char	*storage[OPEN_MAX];
+	static char	*storage[OPN_MAX];
 	int			buffer_read;
 
-	if (BUFFER_SIZE < 1 || !line || fd < 0 || fd >= OPEN_MAX)
+	if (BUFFER_SIZE < 1 || !line || fd < 0 || fd >= OPN_MAX)
 		return (-1);
 	if (!(storage[fd]))
 		storage[fd] = ft_strdup("");

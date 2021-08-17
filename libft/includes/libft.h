@@ -6,7 +6,7 @@
 /*   By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 09:56:56 by lpinheir          #+#    #+#             */
-/*   Updated: 2021/06/10 18:28:14 by lpinheir         ###   ########.fr       */
+/*   Updated: 2021/08/17 16:54:14 by lpinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdint.h>
 
 /* FOR GET NEXT LINE */
-# define OPEN_MAX 256
+# define OPN_MAX 256
 # define BUFFER_SIZE 1000
 
 int			ft_atoi(const char *str);
