@@ -6,7 +6,7 @@
 #    By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/24 09:16:41 by lpinheir          #+#    #+#              #
-#    Updated: 2021/06/17 17:36:50 by lpinheir         ###   ########.fr        #
+#    Updated: 2021/08/17 09:55:13 by lpinheir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,11 @@ MAIN = main
 GAME = game
 
 SRCS = $(S_DIR)/$(MAIN)/board.c $(S_DIR)/$(MAIN)/game_config.c 			\
-		$(S_DIR)/$(MAIN)/inits.c $(S_DIR)/$(MAIN)/main.c 				\
-		$(S_DIR)/$(MAIN)/parse_map.c $(S_DIR)/$(MAIN)/parser.c 			\
-		$(S_DIR)/$(MAIN)/parser_utils.c $(S_DIR)/$(MAIN)/parse_colors.c	\
-		$(S_DIR)/$(GAME)/control.c $(S_DIR)/$(GAME)/draw.c 				\
+		$(S_DIR)/$(MAIN)/inits.c $(S_DIR)/$(MAIN)/main.c 		\
+		$(S_DIR)/$(MAIN)/parse_map.c $(S_DIR)/$(MAIN)/parser.c 		\
+		$(S_DIR)/$(MAIN)/parser_utils.c					\
+		$(S_DIR)/$(MAIN)/parse_colors_util.c				\
+		$(S_DIR)/$(GAME)/control.c $(S_DIR)/$(GAME)/draw.c 		\
 		$(S_DIR)/$(GAME)/hor_ray_hits.c $(S_DIR)/$(GAME)/raycasting.c 	\
 		$(S_DIR)/$(GAME)/textures.c $(S_DIR)/$(GAME)/ver_ray_hits.c 	\
 

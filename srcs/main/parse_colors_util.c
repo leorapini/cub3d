@@ -44,7 +44,7 @@ static char	*delete_space(char *line)
 
 /* Receives address of ceiling or floor color (int) and sets its based
 on string version of it */
-static void	line_rgb_to_int(int *config_color, char *line)
+void	line_rgb_to_int(int *config_color, char *line)
 {
 	char	*rgb;
 
@@ -53,27 +53,65 @@ static void	line_rgb_to_int(int *config_color, char *line)
 	free(rgb);
 }
 
-/* Parses Colors for Floor and Ceiling (F, C), receives item name, color value
-in string format Ex. 100,100,0 and Config */
-void	parse_colors(char **words, char *line, int word_count,
-	t_config *config)
+/* Auxiliary function to rgb_to_int. Receives two strings, joins them
+and returns the joined string. */
+static char	*join_hex(char *hex_dest, char *hex)
 {
-	if (!(ft_strncmp(words[0], "F", 1)))
+	char	*temp;
+
+	temp = ft_strjoin(hex_dest, hex);
+	free(hex_dest);
+	hex_dest = temp;
+	return (hex_dest);
+}
+
+/* Auxiliary function to rgb_to_int. Receives string and checks if value
+is a number. Exits with error if that's not the case. Returns hex value
+as a string */
+static char	*check_hex(char *number)
+{
+	char	*hex;
+	int		int_num;
+
+	int_num = 0;
+	if (!(ft_strisdigit(number)))
+		error("F or C values aren't numbers");
+	if (!(ft_strncmp(number, "0", 1)))
+		hex = ft_strdup("00");
+	else
 	{
-		if (config->floor_color == -1 && word_count == 2)
-			config->floor_color = rgb_to_int(words[1]);
-		else if (config->floor_color == -1 && word_count > 2)
-			line_rgb_to_int(&config->floor_color, line);
-		else
-			error("Error in color");
+		int_num = ft_atoi(number);
+		if (int_num > 255)
+			error("F or C values are bigger than 255");
+		hex = ft_uitoh(int_num, 0);
 	}
-	else if (!(ft_strncmp(words[0], "C", 1)))
+	return (hex);
+}
+
+/* Receives a rgb string in the format Ex. 100,100,0 and returns the int
+value referent to that rgb value */
+int	rgb_to_int(char	*rgb_color)
+{
+	char	**numbers;
+	char	*hex;
+	char	*total_hex;
+	int		results;
+	int		i;
+
+	i = 0;
+	numbers = ft_split(rgb_color, ',');
+	total_hex = ft_strdup("");
+	while (numbers[i] != NULL)
 	{
-		if (config->ceiling_color == -1 && word_count == 2)
-			config->ceiling_color = rgb_to_int(words[1]);
-		else if (config->ceiling_color == -1 && word_count > 2)
-			line_rgb_to_int(&config->ceiling_color, line);
-		else
-			error("Error in color");
+		hex = check_hex(numbers[i]);
+		total_hex = join_hex(total_hex, hex);
+		free(hex);
+		i++;
 	}
+	if (i != 3)
+		error("Bad F or C color value");
+	results = ft_htoui(total_hex);
+	free(total_hex);
+	free_split(numbers);
+	return (results);
 }

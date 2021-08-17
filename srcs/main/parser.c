@@ -12,15 +12,29 @@
 
 #include "game.h"
 
-/* Receives array of words and counts how many words are there */
-int	words_counter(char **words)
+/* Receives name (NO, SO, EA, WE) and checks if value has already been set */
+static void	check_duplicate_textures(char *name, t_config config)
 {
-	int	i;
-
-	i = 0;
-	while (words[i])
-		i++;
-	return (i);
+	if (!(ft_strncmp(name, "NO", 2)))
+	{
+		if (config.no_texture != NULL)
+			error("Error in texture");
+	}
+	else if (!(ft_strncmp(name, "SO", 2)))
+	{
+		if (config.so_texture != NULL)
+			error("Error in texture");
+	}
+	else if (!(ft_strncmp(name, "WE", 2)))
+	{
+		if (config.we_texture != NULL)
+			error("Error in texture");
+	}
+	else if (!(ft_strncmp(name, "EA", 2)))
+	{
+		if (config.ea_texture != NULL)
+			error("Error in texture");
+	}
 }
 
 /* Parses Textures for SO, SO, WE, EA, S. Receives string with file location
@@ -28,33 +42,51 @@ and config and set those locations to each respective item in config */
 static void	parse_textures(char *name, char *file_location, t_config *config)
 {
 	check_file_exists(file_location);
+	check_duplicate_textures(name, *config);
 	if (!(ft_strncmp(name, "NO", 2)))
 	{
 		if (config->no_texture == NULL)
 			config->no_texture = ft_strdup(file_location);
-		else
-			error("Error in texture");
 	}
 	else if (!(ft_strncmp(name, "SO", 2)))
 	{
 		if (config->so_texture == NULL)
 			config->so_texture = ft_strdup(file_location);
-		else
-			error("Error in texture");
 	}
 	else if (!(ft_strncmp(name, "WE", 2)))
 	{
 		if (config->we_texture == NULL)
 			config->we_texture = ft_strdup(file_location);
-		else
-			error("Error in texture");
 	}
 	else if (!(ft_strncmp(name, "EA", 2)))
 	{
 		if (config->ea_texture == NULL)
 			config->ea_texture = ft_strdup(file_location);
+	}
+}
+
+/* Parses Colors for Floor and Ceiling (F, C), receives item name, color value
+in string format Ex. 100,100,0 and Config */
+void	parse_colors(char **words, char *line, int word_count,
+	t_config *config)
+{
+	if (!(ft_strncmp(words[0], "F", 1)))
+	{
+		if (config->floor_color == -1 && word_count == 2)
+			config->floor_color = rgb_to_int(words[1]);
+		else if (config->floor_color == -1 && word_count > 2)
+			line_rgb_to_int(&config->floor_color, line);
 		else
-			error("Error in texture");
+			error("Error in color");
+	}
+	else if (!(ft_strncmp(words[0], "C", 1)))
+	{
+		if (config->ceiling_color == -1 && word_count == 2)
+			config->ceiling_color = rgb_to_int(words[1]);
+		else if (config->ceiling_color == -1 && word_count > 2)
+			line_rgb_to_int(&config->ceiling_color, line);
+		else
+			error("Error in color");
 	}
 }
 
