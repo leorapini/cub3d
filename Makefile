@@ -6,7 +6,7 @@
 #    By: lpinheir <lpinheir@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/24 09:16:41 by lpinheir          #+#    #+#              #
-#    Updated: 2021/08/17 16:50:50 by lpinheir         ###   ########.fr        #
+#    Updated: 2021/08/18 16:50:05 by lpinheir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,23 +43,23 @@ SRCS = $(S_DIR)/$(MAIN)/board.c $(S_DIR)/$(MAIN)/game_config.c 			\
 OBJS = $(subst $(S_DIR), $(O_DIR), $(SRCS:.c=.o))
 
 $(O_DIR)/%.o:	$(S_DIR)/%.c
-	@$(CC) $(CC_FLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CC_FLAGS) $(INCLUDES) -c $< -o $@
 
 all:	$(NAME)	
 
 $(LIBFT):
-	@make -C $(LIBFT_DIR)
+	make -C $(LIBFT_DIR)
 
 $(NAME):	$(OBJS) $(LIBFT)
-	$(CC) $(CC_FLAGS) -o $(NAME) $(OBJS) $(LIBFT_FLAGS) $(MLX_FLAGS)
+	$(CC) $(CC_FLAGS) -o $(NAME) $(OBJS) $(LIBFT_FLAGS) $(MLX_FLAGS) 
 
 clean:
-	@make clean -C $(LIBFT_DIR)
-	@rm $(RM_FLAGS) $(OBJS)
+	make clean -C $(LIBFT_DIR)
+	rm $(RM_FLAGS) $(OBJS)
 
 fclean:	clean
-	@make fclean -C $(LIBFT_DIR)
-	@rm $(NAME)
+	make fclean -C $(LIBFT_DIR)
+	rm $(NAME)
 
 re:	fclean all
 

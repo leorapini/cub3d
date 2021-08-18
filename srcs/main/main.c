@@ -29,13 +29,30 @@ void	error(char *message)
 	exit(1);
 }
 
-/* Checks file name and extension */
-static void	check_cub(char *file_name)
+/* Checks file name extension */
+static void is_dot_cub(char *file_name)
 {
-	if (!(ft_strnstr(file_name, ".cub", ft_strlen(file_name))))
-		error("Wrong file extension");
+	char *cub;
+	int len;
+	int j;
+
+	cub = ft_strdup(".cub");
+	len = ft_strlen(file_name) - 1;
+	j = 3;
+	while (j >= 0)
+	{
+		if (file_name[len] != cub[j])
+		{
+			free(cub);
+			error("Wrong file extension");
+		}
+		j--;
+		len--;
+	}
+	free(cub);
 }
 
+/* Main function */
 int	main(int argc, char **argv)
 {
 	t_game		game;
@@ -45,7 +62,8 @@ int	main(int argc, char **argv)
 		error("Usage: ./cub3d ./maps/1.cub");
 	else if (argc == 2)
 	{
-		check_cub(argv[1]);
+		is_dot_cub(argv[1]);
+		//check_cub(argv[1]);
 		parse_cub(argv[1], &game.config);
 	}
 	else

@@ -44,10 +44,7 @@ int	check_file_exists(char const *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 1)
-	{
-		printf("Problem with file %s\n", file);
 		error("File Not Found");
-	}
 	close(fd);
 	return (0);
 }
