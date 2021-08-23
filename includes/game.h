@@ -48,6 +48,7 @@ char	*delete_space(char *line);
 /* PARSE COLORS UTILS */
 void	line_rgb_to_int(int *config_color, char *line);
 int		rgb_to_int(char *rgb_color);
+void	check_number(char *s);
 
 /* PARSE MAP */
 int		parse_map(char *lin, t_config *config);

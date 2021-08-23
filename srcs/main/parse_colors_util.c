@@ -15,7 +15,7 @@
 /* Receives s (line) and checks for usual characters and or spaces
 between actual numbers Ex. 25 5. This is called when C or F settings
 have spaces between commas. Ex. 255,   255 , 255 */
-static void	check_number(char *s)
+void	check_number(char *s)
 {
 	int	i;
 	int	number;
