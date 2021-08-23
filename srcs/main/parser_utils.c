@@ -67,3 +67,32 @@ int	check_empty_line(char *line, t_config *config)
 	else
 		return (0);
 }
+
+/* Receives line and returns rgb value as string without letter and spaces */
+char	*delete_space(char *line)
+{
+	char	*rgb;
+	int		len;
+	int		i;
+	int		j;
+
+	len = 0;
+	i = 0;
+	check_number(line);
+	while (line[i++])
+		if (line[i] == ',' || ft_isdigit(line[i]))
+			len++;
+	rgb = (char *) malloc(sizeof(char *) * (len + 1));
+	i = 0;
+	j = 0;
+	while (line[i++])
+	{
+		if (line[i] == ',' || ft_isdigit(line[i]))
+		{
+			rgb[j] = line[i];
+			j++;
+		}
+	}
+	rgb[j] = '\0';
+	return (rgb);
+}

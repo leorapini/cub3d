@@ -43,6 +43,7 @@ void	free_split(char **words_line);
 int		check_file_exists(char const *file);
 int		words_counter(char **words);
 int		check_empty_line(char *line, t_config *config);
+char	*delete_space(char *line);
 
 /* PARSE COLORS UTILS */
 void	line_rgb_to_int(int *config_color, char *line);

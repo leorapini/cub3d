@@ -12,34 +12,34 @@
 
 #include "game.h"
 
-/* Receives line and returns rgb value as string without letter and spaces */
-static char	*delete_space(char *line)
+/* Receives s (line) and checks for usual characters and or spaces
+between actual numbers Ex. 25 5. This is called when C or F settings
+have spaces between commas. Ex. 255,   255 , 255 */
+static void	check_number(char *s)
 {
-	char	*rgb;
-	int		len;
-	int		i;
-	int		j;
+	int	i;
+	int	number;
+	int	lock_number;
 
-	len = 0;
 	i = 0;
-	while (line[i++])
+	number = 0;
+	lock_number = 0;
+	while (s[i++])
 	{
-		if (line[i] == ',' || ft_isdigit(line[i]))
-			len++;
-	}
-	rgb = (char *) malloc(sizeof(char *) * (len + 1));
-	i = 0;
-	j = 0;
-	while (line[i++])
-	{
-		if (line[i] == ',' || ft_isdigit(line[i]))
+		if (s[i] != ',' && s[i] != ' ' && !(ft_isdigit(s[i])) && s[i] != 0)
+			error("Error in C or F");
+		if (ft_isdigit(s[i]) && lock_number == 0)
+			number = 1;
+		if (ft_isdigit(s[i]) && lock_number == 1)
+			error(".cub C or F settings fail");
+		else if (s[i] == ' ' && number == 1)
+			lock_number = 1;
+		else if (s[i] == ',')
 		{
-			rgb[j] = line[i];
-			j++;
+			number = 0;
+			lock_number = 0;
 		}
 	}
-	rgb[j] = '\0';
-	return (rgb);
 }
 
 /* Receives address of ceiling or floor color (int) and sets its based

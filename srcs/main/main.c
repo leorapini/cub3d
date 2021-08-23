@@ -30,11 +30,11 @@ void	error(char *message)
 }
 
 /* Checks file name extension */
-static void is_dot_cub(char *file_name)
+static void	is_dot_cub(char *file_name)
 {
-	char *cub;
-	int len;
-	int j;
+	char	*cub;
+	int		len;
+	int		j;
 
 	cub = ft_strdup(".cub");
 	len = ft_strlen(file_name) - 1;
@@ -63,7 +63,6 @@ int	main(int argc, char **argv)
 	else if (argc == 2)
 	{
 		is_dot_cub(argv[1]);
-		//check_cub(argv[1]);
 		parse_cub(argv[1], &game.config);
 	}
 	else

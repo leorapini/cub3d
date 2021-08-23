@@ -1,6 +1,6 @@
 
-F 50,50,50
-C 255,255,25
+F 50, 50 ,50
+C   25 , 240,  250  
 
 NO  ./images/red.xpm
 SO     ./images/greystone.xpm 
