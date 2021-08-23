@@ -20,17 +20,19 @@ void	check_number(char *s)
 	int	i;
 	int	number;
 	int	lock_number;
+	int	commas;
 
 	i = 0;
 	number = 0;
 	lock_number = 0;
+	commas = 0;
 	while (s[i++])
 	{
 		if (s[i] != ',' && s[i] != ' ' && !(ft_isdigit(s[i])) && s[i] != 0)
 			error("Error in C or F");
 		if (ft_isdigit(s[i]) && lock_number == 0)
 			number = 1;
-		if (ft_isdigit(s[i]) && lock_number == 1)
+		else if (ft_isdigit(s[i]) && lock_number == 1)
 			error(".cub C or F settings fail");
 		else if (s[i] == ' ' && number == 1)
 			lock_number = 1;
@@ -38,8 +40,11 @@ void	check_number(char *s)
 		{
 			number = 0;
 			lock_number = 0;
+			commas++;
 		}
 	}
+	if (commas != 2)
+		error(".cub C or F settings fail");
 }
 
 /* Receives address of ceiling or floor color (int) and sets its based
